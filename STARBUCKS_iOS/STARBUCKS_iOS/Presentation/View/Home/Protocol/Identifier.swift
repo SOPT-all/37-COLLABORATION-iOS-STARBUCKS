@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol Identifiable {
+protocol Identifier {
     static var identifier: String { get }
 }
 
-extension Identifiable {
+extension Identifier {
     static var identifier: String {
         return String(describing: self)
     }
