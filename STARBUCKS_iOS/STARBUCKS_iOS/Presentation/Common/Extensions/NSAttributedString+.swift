@@ -13,9 +13,9 @@ extension NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
         
         switch style {
-        case .body_regular_12, .caption_bold_11:
+        case .body_r_12, .caption_b_11:
             paragraph.lineHeightMultiple = 1.35
-        case .body_regular_13:
+        case .body_r_13:
             paragraph.lineHeightMultiple = 1.4
         default:
             paragraph.lineHeightMultiple = 1.0
