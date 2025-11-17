@@ -22,7 +22,6 @@
 				Info.plist,
 				Network/.gitkeep,
 				Presentation/Common/Components/.gitkeep,
-				Presentation/Common/Resources/Fonts/.gitkeep,
 				Presentation/View/Home/.gitkeep,
 				Presentation/View/MyMenu/.gitkeep,
 			);
