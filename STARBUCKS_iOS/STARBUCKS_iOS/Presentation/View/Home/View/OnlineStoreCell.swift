@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnlineStoreCell: UITableViewCell {
+final class OnlineStoreCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

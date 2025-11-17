@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WhatsNewCell: UITableViewCell {
+final class WhatsNewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

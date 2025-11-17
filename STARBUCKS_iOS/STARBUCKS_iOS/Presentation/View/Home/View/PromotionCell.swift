@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PromotionCell: UITableViewCell {
+final class PromotionCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
