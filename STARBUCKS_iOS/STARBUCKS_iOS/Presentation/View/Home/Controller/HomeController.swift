@@ -37,10 +37,10 @@ final class HomeController: BaseViewController {
     // MARK: - Private Methods
     
     private func setupTableView() {
-        rootView.tableView.delegate = self
-        rootView.dataSource = self
-        rootView.separatorStyle = .none
-        rootView.contentInsetAdjustmentBehavior = .never
+        rootView.mainTableView.delegate = self
+        rootView.mainTableView.dataSource = self
+        rootView.mainTableView.separatorStyle = .none
+        rootView.mainTableView.contentInsetAdjustmentBehavior = .never
     }
     
     // MARK: - Public Methods
@@ -48,17 +48,32 @@ final class HomeController: BaseViewController {
     // MARK: - Set Actions
 }
 
-extension HomeViewController: UITableViewDelegate {
+extension HomeController: UITableViewDelegate {
     
+    enum MainTableViewSection: Int, CaseIterable {
+        case quickOrder
+        case recommendMenu
+        case promotion
+        case onlineStore
+        case whatsNew
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        MainTableViewSection.allCases.count
+    }
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension HomeController: UITableViewDataSource {
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        switch indexPath.section {
+            case 0:
+            
+        }
     }
     
     

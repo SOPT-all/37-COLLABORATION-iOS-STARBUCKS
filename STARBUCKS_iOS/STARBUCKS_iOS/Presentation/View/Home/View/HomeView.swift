@@ -13,7 +13,8 @@ import Then
 final class HomeView: BaseView {
     
     // MARK: - Properties
-    let tableView: UITableView = UITableView()
+    
+    let mainTableView = UITableView(frame: .zero, style: .plain)
     
     // MARK: - UI Components
     
