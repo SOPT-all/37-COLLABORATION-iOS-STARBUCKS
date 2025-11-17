@@ -5,4 +5,8 @@
 //  Created by JIN on 11/18/25.
 //
 
-import Foundation
+import UIKit
+
+extension UICollectionViewCell: Identifier {
+    
+}
