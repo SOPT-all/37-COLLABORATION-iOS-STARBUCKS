@@ -12,11 +12,13 @@ import Then
 
 final class ShopViewController: BaseViewController {
     
-    private let shopView = UIView().then {
-        $0.backgroundColor = .systemGreen
-    }
+    private let shopView = UIView()
     
     override func setUI() {
+        shopView.do {
+            $0.backgroundColor = .systemGreen
+        }
+        
         view.addSubview(shopView)
     }
     

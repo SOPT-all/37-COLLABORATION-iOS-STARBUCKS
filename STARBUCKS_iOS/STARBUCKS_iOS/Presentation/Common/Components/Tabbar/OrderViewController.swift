@@ -12,11 +12,13 @@ import Then
 
 final class OrderViewController: BaseViewController {
     
-    private let orderView = UIView().then {
-        $0.backgroundColor = .systemYellow
-    }
+    private let orderView = UIView()
     
     override func setUI() {
+        orderView.do {
+            $0.backgroundColor = .systemYellow
+        }
+        
         view.addSubview(orderView)
     }
     

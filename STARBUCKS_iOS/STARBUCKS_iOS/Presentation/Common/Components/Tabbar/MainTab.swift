@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 enum MainTab: CaseIterable {
     case home
     case pay

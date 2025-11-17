@@ -12,11 +12,13 @@ import Then
 
 final class HomeViewController: BaseViewController {
     
-    private let homeView = UIView().then {
-        $0.backgroundColor = .systemRed
-    }
+    private let homeView = UIView()
     
     override func setUI() {
+        homeView.do {
+            $0.backgroundColor = .systemRed
+        }
+        
         view.addSubview(homeView)
     }
     

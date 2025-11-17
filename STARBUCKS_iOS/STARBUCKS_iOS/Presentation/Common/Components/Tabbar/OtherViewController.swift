@@ -12,11 +12,13 @@ import Then
 
 final class OtherViewController: BaseViewController {
     
-    private let otherView = UIView().then {
-        $0.backgroundColor = .systemBlue
-    }
+    private let otherView = UIView()
     
     override func setUI() {
+        otherView.do {
+            $0.backgroundColor = .systemBlue
+        }
+        
         view.addSubview(otherView)
     }
     

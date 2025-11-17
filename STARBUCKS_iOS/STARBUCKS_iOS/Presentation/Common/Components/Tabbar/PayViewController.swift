@@ -12,11 +12,13 @@ import Then
 
 final class PayViewController: BaseViewController {
     
-    private let payView = UIView().then {
-        $0.backgroundColor = .systemOrange
-    }
+    private let payView = UIView()
     
     override func setUI() {
+        payView.do {
+            $0.backgroundColor = .systemOrange
+        }
+        
         view.addSubview(payView)
     }
     
