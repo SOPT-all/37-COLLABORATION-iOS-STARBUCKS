@@ -20,7 +20,7 @@ import Then
       case whatsNew
   }
 
-final class HomeViewController: BaseViewController {
+final class HomeController: BaseViewController {
     
     // MARK: - Properties
     
