@@ -121,7 +121,7 @@ final class QuickOrderItemCell: UICollectionViewCell {
         
         storeLabel.do {
             $0.font = .pretendard(.caption_r_12)
-            $0.textColor = UIColor(resource: .brown)
+            $0.textColor = UIColor(resource: .brown01)
         }
         
         orderButton.do {
@@ -215,13 +215,13 @@ final class QuickOrderItemCell: UICollectionViewCell {
         
         if let storeName = item.storeName {
             storeLabel.text = storeName
-            storeLabel.textColor = UIColor(resource: .brown)
+            storeLabel.textColor = UIColor(resource: .brown01)
         } else {
             storeLabel.text = "매장을 설정하세요."
-            storeLabel.textColor = UIColor(resource: .brown)
+            storeLabel.textColor = UIColor(resource: .brown01)
             
             let underlineView = UIView()
-            underlineView.backgroundColor = UIColor(resource: .brown)
+            underlineView.backgroundColor = UIColor(resource: .brown01)
             addSubview(underlineView)
 
             underlineView.snp.makeConstraints {
