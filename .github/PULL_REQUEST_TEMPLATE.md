@@ -20,10 +20,10 @@
 
 ## 📷 Screenshots  
 
-| 기능/화면 | iPhone SE | iPhone 16 Pro |
-|:---------:|:---------:|:-------------:|
-| A 기능 | <img src="" width="250"> | <img src="" width="250"> |
-| B 기능 | <img src="" width="250"> | <img src="" width="250"> |
+| 기능/화면 | iPhone SE | iPhone 13 mini | iPhone 15 Pro |
+|:---------:|:---------:|:-------------:|:-------------:|
+| A 기능 | <img src="" width="250"> | <img src="" width="250"> | <img src="" width="250"> |
+| B 기능 | <img src="" width="250"> | <img src="" width="250"> | <img src="" width="250"> |
 
 ---
 
