@@ -43,7 +43,10 @@ final class MyMenuListView: BaseView {
       $0.showsVerticalScrollIndicator = false
       $0.dataSource = self
       $0.delegate = self
-      $0.register(MyMenuCollectionViewCell.self, forCellWithReuseIdentifier: MyMenuCollectionViewCell.identifier)
+      $0.register(
+        MyMenuCollectionViewCell.self,
+        forCellWithReuseIdentifier: MyMenuCollectionViewCell.identifier
+      )
     }
   }
   

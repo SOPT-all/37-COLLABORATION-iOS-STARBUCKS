@@ -11,9 +11,7 @@ import SnapKit
 import Then
 
 final class MyMenuViewController: BaseViewController {
-    
-    // MARK: - Properties
-    
+
     // MARK: - UI Components
     
     private let menuView = MyMenuListView()

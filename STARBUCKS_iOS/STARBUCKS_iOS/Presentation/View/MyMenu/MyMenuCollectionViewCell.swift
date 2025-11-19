@@ -210,17 +210,3 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
     imageView.image = .imageHomeBanner7
   }
 }
-
-#Preview {
-    MyMenuCollectionViewCell().then {
-        $0.configure(with: MyMenuModel(
-            id: 1,
-            customName: "나의 아메리카노",
-            officialName: "아이스 아메리카노",
-            detail: "진한 에스프레소와 시원한 물의 조화",
-            price: "4,500원",
-            imageName: .imageHomeBanner7,
-            category: .drink
-        ))
-    }
-}
