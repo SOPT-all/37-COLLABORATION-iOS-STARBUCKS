@@ -1,5 +1,5 @@
 //
-//  AlertView.swift
+//  Alert.swift
 //  STARBUCKS_iOS
 //
 //  Created by 안치욱 on 11/18/25.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class AlertView: UIView {
+final class Alert: UIView {
     
     // MARK: - Properties
     
