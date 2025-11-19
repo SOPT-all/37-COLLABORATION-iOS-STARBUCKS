@@ -11,6 +11,7 @@ enum ChipType: CaseIterable {
     case green
     case coupon
     case pay
+    case buddyPass
 }
 
 extension ChipType {
@@ -19,16 +20,45 @@ extension ChipType {
         case .green: return .iconGreen
         case .coupon: return .iconCoupon
         case .pay: return .iconPay2
+        case .buddyPass: return .iconBuddypass
         }
     }
     
     var selected: Bool {
         switch self {
-        case .green: return true
+        case .green, .buddyPass: return true
         case .coupon, .pay: return false
         }
     }
     
+    var title: String {
+        switch self {
+        case .green: return "Green"
+        case .coupon: return "Coupon"
+        case .pay: return "Pay"
+        case .buddyPass: return "Buddy Pass"
+        }
+    }
     
+    var leadingInset: CGFloat {
+        switch self {
+        case .green: return 22
+        case .coupon: return 22.5
+        case .pay: return 14
+        case .buddyPass: return 12
+        }
+    }
     
+    var secondInset: CGFloat {
+        10
+    }
+    
+    var width: CGFloat {
+        switch self {
+        case .green: return 123
+        case .coupon: return 122
+        case .pay: return 84
+        case .buddyPass: return 135
+        }
+    }
 }
