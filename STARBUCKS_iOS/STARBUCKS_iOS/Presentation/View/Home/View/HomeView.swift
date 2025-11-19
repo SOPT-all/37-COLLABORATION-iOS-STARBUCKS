@@ -23,9 +23,10 @@ final class HomeView: BaseView {
     
     // MARK: - Life Cycle
     
-    // MARK: - setUIComponent
-    
-    func setUIComponent() {
+    // MARK: - Set UI
+    override func setUI() {
+        self.addSubviews(mainTableView, headerImage, titleLabel)
+         
         headerImage.do {
             $0.image = UIImage(resource: .imageHomeTopBanner)
             $0.contentMode = .scaleAspectFill
@@ -37,13 +38,6 @@ final class HomeView: BaseView {
             $0.font = .pretendard(.head_b_21)
             $0.textColor = .black
         }
-    }
-    
-    // MARK: - Set UI
-    override func setUI() {
-        setUIComponent()
-        self.addSubviews(mainTableView, headerImage, titleLabel)
-         
     }
     
     // MARK: - Set Layout
