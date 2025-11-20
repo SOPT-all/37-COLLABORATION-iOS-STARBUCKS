@@ -17,7 +17,7 @@ final class HomeView: BaseView {
     let mainTableView = UITableView(frame: .zero, style: .plain)
     
     // MARK: - UI Components
-    
+    let headerContainer = UIView()
     let headerImage = UIImageView()
     let titleLabel = UILabel()
     
@@ -26,6 +26,8 @@ final class HomeView: BaseView {
     // MARK: - Set UI
     override func setUI() {
         self.addSubviews(mainTableView, headerImage, titleLabel)
+             headerContainer.addSubviews(headerImage, titleLabel)
+
          
         headerImage.do {
             $0.image = UIImage(resource: .imageHomeTopBanner)

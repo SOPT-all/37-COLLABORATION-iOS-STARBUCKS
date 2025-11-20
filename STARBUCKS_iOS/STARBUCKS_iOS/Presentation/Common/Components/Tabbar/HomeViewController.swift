@@ -12,64 +12,14 @@ import Then
 
 final class HomeViewController: BaseViewController {
     
-    // HomeViewController.swift
-
     private var headerHeight: CGFloat = 237
     private var offsetCorrection: CGFloat = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        setupPanGesture()
+        setupTableHeader()
     }
-
-    private func setupPanGesture() {
-        homeView.mainTableView.panGestureRecognizer.addTarget(
-            self,
-            action: #selector(handlePanGesture)
-        )
-    }
-
-    @objc private func handlePanGesture(_ sender: UIPanGestureRecognizer) {
-        let translationY = sender.translation(in: homeView.mainTableView).y
-        let velocityY = sender.velocity(in: homeView.mainTableView).y
-        let unclampedOffset = translationY - offsetCorrection
-        if unclampedOffset >= 0 {
-            offsetCorrection = translationY
-        }
-        if unclampedOffset <= -headerHeight {
-            offsetCorrection = translationY + headerHeight
-        }
-        let headerOffsetY = translationY - offsetCorrection
-        updateHeaderPosition(headerOffsetY)
-        let progress = abs(headerOffsetY) / headerHeight
-        homeView.titleLabel.alpha = 1 - progress
-        
-        if sender.state == .ended {
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                guard let self = self else { return }
-                
-                if velocityY < 0 {
-                    self.updateHeaderPosition(-self.headerHeight)
-                    self.homeView.titleLabel.alpha = 0
-                    self.offsetCorrection = self.headerHeight
-                } else {
-                    self.updateHeaderPosition(0)
-                    self.homeView.titleLabel.alpha = 1
-                    self.offsetCorrection = 0
-                }
-                
-                self.homeView.layoutIfNeeded()
-            }
-        }
-    }
-
-    private func updateHeaderPosition(_ offsetY: CGFloat) {
-        homeView.headerImage.snp.updateConstraints {
-            $0.top.equalToSuperview().offset(offsetY)
-        }
-    }
-    
     // MARK: - Properties
     
     private let homeView = HomeView()
@@ -81,18 +31,6 @@ final class HomeViewController: BaseViewController {
     override func loadView() {
         self.view = homeView
     }
-
-    
-    // MARK: - Set UI
-    override func setUI() {
-      
-    }
-    
-    // MARK: - Set Layout
-    
-    override func setLayout() {
-
-    }
     
     // MARK: - Private Methods
     
@@ -100,18 +38,49 @@ final class HomeViewController: BaseViewController {
         homeView.mainTableView.delegate = self
         homeView.mainTableView.dataSource = self
         homeView.mainTableView.separatorStyle = .none
-        homeView.mainTableView.contentInsetAdjustmentBehavior = .never
-        homeView.mainTableView.contentInset.top = 250
+        homeView.mainTableView.rowHeight = UITableView.automaticDimension
+        homeView.mainTableView.estimatedRowHeight = 300
         homeView.mainTableView.register(QuickOrderCell.self, forCellReuseIdentifier: QuickOrderCell.identifier)
         homeView.mainTableView.register(RecommendMenuCell.self, forCellReuseIdentifier: RecommendMenuCell.identifier)
         homeView.mainTableView.register(WhatsNewCell.self, forCellReuseIdentifier:
             WhatsNewCell.identifier)
+        homeView.mainTableView.register(PromotionCell.self, forCellReuseIdentifier:
+            PromotionCell.identifier)
     }
     
-    // MARK: - Public Methods
+    private func setupTableHeader() {
+        let header = homeView.headerContainer
+
+        header.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: view.frame.width,
+            height: headerHeight
+        )
+
+        homeView.mainTableView.tableHeaderView = header
+    }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y = scrollView.contentOffset.y
+
+        if y > 0 {
+            let newHeight = max(headerHeight - y, 0)
+            updateHeaderHeight(newHeight)
+            homeView.titleLabel.alpha = newHeight / headerHeight
+        }
+    }
     
-    // MARK: - Set Actions
+    private func updateHeaderHeight(_ height: CGFloat) {
+        guard let header = homeView.mainTableView.tableHeaderView else { return }
+
+        var frame = header.frame
+        frame.size.height = height
+        header.frame = frame
+
+        homeView.mainTableView.tableHeaderView = header
+    }
+    
 }
 
 extension HomeViewController: UITableViewDelegate {
