@@ -61,8 +61,7 @@ final class PersonalOption: UIView {
     
     private func setLayout() {
         deleteButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview()
+            $0.centerY.leading.equalToSuperview()
         }
         
         optionLabel.snp.makeConstraints {
