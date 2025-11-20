@@ -17,18 +17,25 @@ final class HomeView: BaseView {
     let mainTableView = UITableView(frame: .zero, style: .plain)
     
     // MARK: - UI Components
+    let whiteOverlayView = UIView()
     let headerContainer = UIView()
     let headerImage = UIImageView()
     let titleLabel = UILabel()
+
+    private let chipCollectionViewLayout = UICollectionViewFlowLayout()
+
+    private lazy var chipCollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: chipCollectionViewLayout
+    )
     
     // MARK: - Life Cycle
     
     // MARK: - Set UI
     override func setUI() {
-        self.addSubviews(mainTableView, headerImage, titleLabel)
-             headerContainer.addSubviews(headerImage, titleLabel)
+        self.addSubviews(mainTableView, headerContainer, chipCollectionView)
+        headerContainer.addSubviews(headerImage, titleLabel, whiteOverlayView)
 
-         
         headerImage.do {
             $0.image = UIImage(resource: .imageHomeTopBanner)
             $0.contentMode = .scaleAspectFill
@@ -40,28 +47,115 @@ final class HomeView: BaseView {
             $0.font = .pretendard(.head_b_21)
             $0.textColor = .black
         }
+
+        whiteOverlayView.do {
+            $0.backgroundColor = .white
+            $0.alpha = 0
+        }
+
+        chipCollectionViewLayout.do {
+            $0.scrollDirection = .horizontal
+            $0.minimumInteritemSpacing = 8
+            $0.minimumLineSpacing = 8
+            $0.sectionInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        }
+
+        chipCollectionView.do {
+            $0.backgroundColor = .clear
+            $0.showsHorizontalScrollIndicator = false
+            $0.allowsSelection = false
+            $0.delegate = self
+            $0.dataSource = self
+            $0.register(ChipCell.self, forCellWithReuseIdentifier: ChipCell.identifier)
+        }
     }
     
     // MARK: - Set Layout
     
     override func setLayout() {
-        headerImage.snp.makeConstraints {
-            $0.top.equalToSuperview() 
-            $0.leading.trailing.equalToSuperview()
-            $0.width.equalTo(375)
+        mainTableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
+        headerContainer.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(237)
         }
-        
+
+        chipCollectionView.snp.makeConstraints {
+            $0.bottom.equalTo(headerContainer.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
+        }
+
+        headerImage.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
         titleLabel.snp.makeConstraints {
             $0.centerY.equalTo(headerImage)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().inset(20)
         }
-        
-        mainTableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+
+        whiteOverlayView.snp.makeConstraints {
+            $0.edges.equalTo(headerImage)
         }
     }
-    // MARK: - Private Methods
-    
+
+    // MARK: - Methods
+
+    func updateHeaderContainerYPosition(_ y: CGFloat) {
+        headerContainer.snp.updateConstraints {
+            $0.top.equalToSuperview().offset(y)
+        }
+    }
+
+    func updateChipCollectionYPosition(_ additionalOffset: CGFloat) {
+        chipCollectionView.snp.updateConstraints {
+            $0.bottom.equalTo(headerContainer.snp.bottom).offset(additionalOffset)
+        }
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension HomeView: UICollectionViewDataSource {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        return ChipType.allCases.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ChipCell.identifier,
+            for: indexPath
+        ) as? ChipCell else {
+            return UICollectionViewCell()
+        }
+
+        let chipType = ChipType.allCases[indexPath.row]
+        cell.configure(with: chipType)
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension HomeView: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let chipType = ChipType.allCases[indexPath.row]
+        return CGSize(width: chipType.width, height: 41)
+    }
 }
