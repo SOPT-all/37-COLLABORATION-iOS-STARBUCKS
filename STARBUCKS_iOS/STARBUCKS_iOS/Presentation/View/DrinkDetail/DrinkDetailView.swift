@@ -16,11 +16,23 @@ final class DrinkDetailView: BaseView {
     
     // MARK: - UI Components
     
+    var drinkInfoView = DrinkInfoHeaderView()
+    
     // MARK: - Life Cycle
     
     // MARK: - Set UI
+    override func setUI() {
+        self.backgroundColor = .white
+        self.addSubviews(drinkInfoView)
+    }
     
     // MARK: - Set Layout
+    
+    override func setLayout() {
+        drinkInfoView.snp.makeConstraints  {
+            $0.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+        }
+    }
     
     // MARK: - Private Methods
     
