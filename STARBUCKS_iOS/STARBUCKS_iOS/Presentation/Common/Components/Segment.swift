@@ -52,7 +52,8 @@ final class Segment: UIControl {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 18
             $0.layer.shadowOpacity = 0.1
-            $0.layer.shadowRadius = 4
+            $0.layer.shadowRadius = 2
+            $0.layer.shadowOffset = CGSize(width: 0, height: 0)
         }
         
         hotLabel.do {
@@ -133,8 +134,8 @@ final class Segment: UIControl {
         
         let animation = { [self] in
             layoutIfNeeded()
-            hotLabel.textColor = isHotSelected ? .blue01 : .starbucksGray500
-            icedLabel.textColor = isHotSelected ? .starbucksGray500 : .blue01
+            hotLabel.textColor = isHotSelected ? .red0160 : .starbucksGray500
+            icedLabel.textColor = isHotSelected ? .starbucksGray500 : .blue02
         }
 
         if animated {
