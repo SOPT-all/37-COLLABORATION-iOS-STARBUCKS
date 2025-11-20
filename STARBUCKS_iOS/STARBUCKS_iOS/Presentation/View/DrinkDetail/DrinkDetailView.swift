@@ -18,13 +18,14 @@ final class DrinkDetailView: BaseView {
     
     var drinkInfoHeaderView = DrinkInfoHeaderView()
     var drinkInfoNoticeView = DrinkInfoNoticeView()
+    var drinkNutritionInfoVRow = DrinkNutritionInfoRow()
     
     // MARK: - Life Cycle
     
     // MARK: - Set UI
     override func setUI() {
         self.backgroundColor = .white
-        self.addSubviews(drinkInfoHeaderView, drinkInfoNoticeView)
+        self.addSubviews(drinkInfoHeaderView, drinkInfoNoticeView, drinkNutritionInfoVRow)
     }
     
     // MARK: - Set Layout
@@ -38,6 +39,11 @@ final class DrinkDetailView: BaseView {
         drinkInfoNoticeView.snp.makeConstraints {
             $0.top.equalTo(drinkInfoHeaderView.snp.bottom)
             $0.horizontalEdges.equalToSuperview().inset(16)
+        }
+        
+        drinkNutritionInfoVRow.snp.makeConstraints {
+            $0.top.equalTo(drinkInfoNoticeView.snp.bottom).offset(19)
+            $0.horizontalEdges.equalToSuperview()
         }
     }
     
