@@ -26,9 +26,21 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
   private lazy var addMenuButton = UIButton()
   private lazy var orderButton = UIButton()
   private let dividerView = UIView()
-  
   private var titleStackView = UIStackView()
   private var buttonStackView = UIStackView()
+  
+  // MARK: - Life Cycle
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setStyle()
+    setUI()
+    setLayout()
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError()
+  }
   
   // MARK: - Set Style
   
@@ -93,34 +105,15 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
       $0.alignment = .center
     }
     
-    titleStackView.addArrangedSubview(customNameLabel)
-    titleStackView.addArrangedSubview(editButton)
-    
     buttonStackView.do {
       $0.axis = .horizontal
       $0.spacing = 11
       $0.alignment = .center
     }
     
-    buttonStackView.addArrangedSubview(addMenuButton)
-    buttonStackView.addArrangedSubview(orderButton)
-    
     dividerView.do {
       $0.backgroundColor = .starbucksGray200
     }
-  }
-  
-  // MARK: - Life Cycle
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    setStyle()
-    setUI()
-    setLayout()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError()
   }
   
   // MARK: - Set UI
@@ -136,6 +129,16 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
       buttonStackView,
       dividerView
     )
+    
+    titleStackView.addArrangedSubviews(
+      customNameLabel,
+      editButton
+    )
+    
+    buttonStackView.addArrangedSubviews(
+        addMenuButton,
+        orderButton
+      )
   }
   
   // MARK: - Set Layout
@@ -150,7 +153,7 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
     
     deleteButton.snp.makeConstraints {
       $0.top.equalTo(dividerView).offset(12)
-      $0.trailing.equalTo(contentView).offset(-16)
+      $0.trailing.equalTo(contentView).inset(16)
     }
     
     imageView.snp.makeConstraints {
@@ -191,12 +194,12 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
     
     buttonStackView.snp.makeConstraints {
       $0.top.equalTo(priceLabel.snp.bottom).offset(12.5)
-      $0.trailing.equalTo(contentView).offset(-16)
+      $0.trailing.equalTo(contentView).inset(16)
       $0.bottom.equalTo(contentView)
     }
   }
   
-  // MARK: - Private Methods
+  // MARK: - Configure
   
   func configure(with model: MyMenuModel) {
     customNameLabel.text = model.customName

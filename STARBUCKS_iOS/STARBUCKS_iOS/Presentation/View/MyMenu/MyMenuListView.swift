@@ -16,21 +16,18 @@ protocol MyMenuListViewDelegate: AnyObject {
 
 final class MyMenuListView: BaseView {
   
-  private lazy var collectionView: UICollectionView = {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .vertical
-    layout.minimumLineSpacing = lineSpacing
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    return collectionView
-  }()
-  
   private let lineSpacing: CGFloat = 10
   private let cellHeight: CGFloat = 196
   weak var delegate: MyMenuListViewDelegate?
+  private lazy var layout = UICollectionViewFlowLayout()
+  private lazy var collectionView = UICollectionView(
+    frame: .zero,
+    collectionViewLayout: layout
+  )
   
   var items: [MyMenuModel] = [] {
-          didSet { collectionView.reloadData() }
-      }
+    didSet { collectionView.reloadData() }
+  }
   
   //MARK: - setUI
 
@@ -46,6 +43,11 @@ final class MyMenuListView: BaseView {
         MyMenuCollectionViewCell.self,
         forCellWithReuseIdentifier: MyMenuCollectionViewCell.identifier
       )
+    }
+    
+    layout.do {
+      $0.scrollDirection = .vertical
+      $0.minimumLineSpacing = lineSpacing
     }
   }
   
@@ -64,15 +66,13 @@ final class MyMenuListView: BaseView {
   }
 }
 
-//MARK: - extensions
+  //MARK: - extensions
 
 extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   func collectionView(
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int
-  ) -> Int {
-    items.count
-  }
+  ) -> Int { items.count }
   
   func collectionView(
     _ collectionView: UICollectionView,
@@ -84,10 +84,7 @@ extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, 
     ) as! MyMenuCollectionViewCell
     
     let item = items[indexPath.item]
-    cell
-      .configure(
-        with: item
-      )
+    cell.configure(with: item)
     
       return cell
   }
@@ -97,10 +94,7 @@ extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, 
     didSelectItemAt indexPath: IndexPath
   ) {
     let selectedItem = items[indexPath.item]
-    delegate?
-      .didSelectMenu(
-        selectedItem
-      )
+    delegate?.didSelectMenu(selectedItem)
   }
   
   func collectionView(

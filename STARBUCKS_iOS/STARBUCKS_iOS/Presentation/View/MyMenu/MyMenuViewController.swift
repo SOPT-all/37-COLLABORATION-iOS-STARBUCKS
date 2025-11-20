@@ -25,11 +25,9 @@ final class MyMenuViewController: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setUI()
-    setLayout()
-    
     menuView.delegate = self
   }
+  
     // MARK: - Set UI
     
   override func setUI() {
