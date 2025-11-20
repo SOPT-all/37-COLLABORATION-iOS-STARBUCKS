@@ -79,7 +79,7 @@ final class WhatsNewCell: UITableViewCell {
         
         seeAllLabel.do {
             $0.text = "See all"
-            $0.font = .pretendard(size: 13)
+            $0.font = .pretendard(.body_sb_13)
             $0.textColor = .starbucksGreen500
         }
         
@@ -107,20 +107,20 @@ final class WhatsNewCell: UITableViewCell {
     
     private func setupLayout() {
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().offset(16)
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(26)
         }
         
         seeAllLabel.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.trailing.equalToSuperview().offset(-26)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(11)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(260)
-            $0.bottom.equalToSuperview().offset(-20)
+            $0.height.equalTo(269)
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -243,6 +243,7 @@ final class WhatsNewItemCell: UICollectionViewCell {
             $0.top.equalTo(titleLabel.snp.bottom).offset(6)
             $0.leading.equalToSuperview().offset(12)
             $0.trailing.equalToSuperview().offset(-12)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
     
