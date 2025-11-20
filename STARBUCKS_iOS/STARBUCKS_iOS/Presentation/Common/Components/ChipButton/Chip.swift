@@ -115,7 +115,7 @@ final class Chip: UIView {
         
         numberLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(14)
+            $0.leading.equalTo(chipNameLabel.snp.trailing).offset(10)
         }
         
         newView.snp.makeConstraints {

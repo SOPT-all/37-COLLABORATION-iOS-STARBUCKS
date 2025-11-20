@@ -43,7 +43,7 @@ extension ChipType {
     var leadingInset: CGFloat {
         switch self {
         case .green: return 22
-        case .coupon: return 22.5
+        case .coupon: return 22
         case .pay: return 14
         case .buddyPass: return 12
         }
