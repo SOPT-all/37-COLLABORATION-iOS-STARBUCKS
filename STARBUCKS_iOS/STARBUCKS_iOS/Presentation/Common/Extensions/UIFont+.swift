@@ -59,8 +59,8 @@ extension UIFont {
         case .head_sb_18: return .pretendard(weight: .Semibold, size: 18)
         case .head_sb_14: return .pretendard(weight: .Semibold, size: 14)
         case .head_sb_12: return .pretendard(weight: .Semibold, size: 12)
-        case .head_m_16: return .pretendard(weight: .Regular, size: 16)
-        case .head_m_15: return .pretendard(weight: .Regular, size: 15)
+        case .head_m_16: return .pretendard(weight: .Medium, size: 16)
+        case .head_m_15: return .pretendard(weight: .Medium, size: 15)
             
         
         case .body_b_22: return .pretendard(weight: .Bold, size: 22)

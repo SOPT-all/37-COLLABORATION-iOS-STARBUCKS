@@ -12,15 +12,15 @@ import Then
 
 class MyMenuCollectionViewCell: UICollectionViewCell {
   
-  // MARK: - Properties
+  // MARK: - UI Components
   
   static let identifier = "MyMenuCollectionViewCell"
   
   private let imageView = UIImageView()
-  private let customName = UILabel()
-  private let officalName = UILabel()
-  private let detail = UILabel()
-  private let price = UILabel()
+  private let customNameLabel = UILabel()
+  private let officialNameLabel = UILabel()
+  private let detailLabel = UILabel()
+  private let priceLabel = UILabel()
   private lazy var editButton = UIButton()
   private lazy var deleteButton = UIButton()
   private lazy var addMenuButton = UIButton()
@@ -30,8 +30,7 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
   private var titleStackView = UIStackView()
   private var buttonStackView = UIStackView()
   
-  
-  // MARK: - UI Components
+  // MARK: - Set Style
   
   private func setStyle() {
     imageView.do {
@@ -39,22 +38,22 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
       $0.contentMode = .scaleAspectFill
     }
     
-    customName.do {
+    customNameLabel.do {
       $0.font = UIFont.pretendard(.head_m_15)
       $0.textColor = .black
     }
     
-    officalName.do {
+    officialNameLabel.do {
       $0.font = UIFont.pretendard(.caption_r_13)
       $0.textColor = .starbucksGray600
     }
     
-    detail.do {
+    detailLabel.do {
       $0.font = UIFont.pretendard(.caption_r_13)
       $0.textColor = .starbucksGray600
     }
     
-    price.do {
+    priceLabel.do {
       $0.font = UIFont.pretendard(.head_sb_14)
       $0.textColor = .black
     }
@@ -94,7 +93,7 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
       $0.alignment = .center
     }
     
-    titleStackView.addArrangedSubview(customName)
+    titleStackView.addArrangedSubview(customNameLabel)
     titleStackView.addArrangedSubview(editButton)
     
     buttonStackView.do {
@@ -111,7 +110,6 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
     }
   }
   
-  
   // MARK: - Life Cycle
   
   override init(frame: CGRect) {
@@ -125,15 +123,14 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
     fatalError()
   }
   
-  
   // MARK: - Set UI
   
   private func setUI() {
     contentView.addSubviews(
       imageView,
-      officalName,
-      detail,
-      price,
+      officialNameLabel,
+      detailLabel,
+      priceLabel,
       deleteButton,
       titleStackView,
       buttonStackView,
@@ -167,18 +164,18 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
       $0.leading.equalTo(imageView.snp.trailing).offset(24)
     }
     
-    officalName.snp.makeConstraints {
+    officialNameLabel.snp.makeConstraints {
       $0.top.equalTo(titleStackView.snp.bottom).offset(6)
       $0.leading.equalTo(titleStackView)
     }
     
-    detail.snp.makeConstraints {
-      $0.top.equalTo(officalName.snp.bottom).offset(6)
+    detailLabel.snp.makeConstraints {
+      $0.top.equalTo(officialNameLabel.snp.bottom).offset(6)
       $0.leading.equalTo(titleStackView)
     }
     
-    price.snp.makeConstraints {
-      $0.top.equalTo(detail.snp.bottom).offset(6)
+    priceLabel.snp.makeConstraints {
+      $0.top.equalTo(detailLabel.snp.bottom).offset(6)
       $0.leading.equalTo(titleStackView)
     }
     
@@ -193,20 +190,19 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
     }
     
     buttonStackView.snp.makeConstraints {
-      $0.top.equalTo(price.snp.bottom).offset(12.5)
+      $0.top.equalTo(priceLabel.snp.bottom).offset(12.5)
       $0.trailing.equalTo(contentView).offset(-16)
       $0.bottom.equalTo(contentView)
     }
   }
   
-  
   // MARK: - Private Methods
   
   func configure(with model: MyMenuModel) {
-    customName.text = model.customName
-    officalName.text = model.officialName
-    detail.text = model.detail
-    price.text = model.price
+    customNameLabel.text = model.customName
+    officialNameLabel.text = model.officialName
+    detailLabel.text = model.detail
+    priceLabel.text = model.price
     imageView.image = .imageHomeBanner7
   }
 }
