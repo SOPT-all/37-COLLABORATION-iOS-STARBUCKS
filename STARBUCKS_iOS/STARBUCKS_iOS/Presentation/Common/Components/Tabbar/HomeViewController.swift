@@ -104,6 +104,8 @@ final class HomeViewController: BaseViewController {
         homeView.mainTableView.contentInset.top = 250
         homeView.mainTableView.register(QuickOrderCell.self, forCellReuseIdentifier: QuickOrderCell.identifier)
         homeView.mainTableView.register(RecommendMenuCell.self, forCellReuseIdentifier: RecommendMenuCell.identifier)
+        homeView.mainTableView.register(WhatsNewCell.self, forCellReuseIdentifier:
+            WhatsNewCell.identifier)
     }
     
     // MARK: - Public Methods
