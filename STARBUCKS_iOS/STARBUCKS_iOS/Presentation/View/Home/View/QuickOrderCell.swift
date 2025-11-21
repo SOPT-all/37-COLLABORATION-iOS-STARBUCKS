@@ -54,6 +54,7 @@ final class QuickOrderCell: UITableViewCell {
         mainCollectionView.do {
             $0.backgroundColor = .clear
             $0.showsHorizontalScrollIndicator = false
+            $0.allowsSelection = false
             $0.delegate = self
             $0.dataSource = self
             $0.register(
@@ -70,7 +71,7 @@ final class QuickOrderCell: UITableViewCell {
     private func setLayout() {
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
+            $0.top.equalToSuperview().offset(20)
             $0.leading.equalToSuperview().inset(20)
         }
         
