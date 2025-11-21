@@ -256,6 +256,3 @@ final class WhatsNewItemCell: UICollectionViewCell {
     }
 }
 
-#Preview {
-    WhatsNewCell()
-}

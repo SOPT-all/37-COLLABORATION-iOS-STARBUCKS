@@ -160,7 +160,3 @@ extension RecommendMenuCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-
-#Preview {
-    HomeViewController()
-}
