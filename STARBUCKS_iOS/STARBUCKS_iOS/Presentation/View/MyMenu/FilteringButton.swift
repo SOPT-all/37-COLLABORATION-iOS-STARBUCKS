@@ -101,4 +101,7 @@ final class FilteringButton: UIButton {
     }
   }
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

@@ -80,4 +80,7 @@ final class FilteringBarView: BaseView {
       }
     }
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

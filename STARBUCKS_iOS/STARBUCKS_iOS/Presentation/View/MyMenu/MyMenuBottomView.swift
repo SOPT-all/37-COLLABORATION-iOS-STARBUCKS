@@ -93,4 +93,7 @@ final class MyMenuBottomView: BaseView {
     }
   }
 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
