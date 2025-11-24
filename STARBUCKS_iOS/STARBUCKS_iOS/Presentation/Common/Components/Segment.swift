@@ -82,7 +82,6 @@ final class Segment: UIControl {
     }
     
     private func setLayout() {
-        
         self.snp.makeConstraints {
             $0.height.equalTo(36)
             $0.width.equalTo(341)
