@@ -23,7 +23,6 @@
 				Network/.gitkeep,
 				Presentation/Common/Components/.gitkeep,
 				Presentation/View/Home/.gitkeep,
-				Presentation/View/MyMenu/.gitkeep,
 			);
 			target = B057E9102ECA6EBD001C2109 /* STARBUCKS_iOS */;
 		};
