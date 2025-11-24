@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B057E94E2ECA6F5B001C2109 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B057E94D2ECA6F5B001C2109 /* Then */; };
 		B057E9512ECA6F64001C2109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B057E9502ECA6F64001C2109 /* SnapKit */; };
+		B0A61FE72ED3FEC30000F332 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = B0A61FE62ED3FEC30000F332 /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 			files = (
 				B057E94E2ECA6F5B001C2109 /* Then in Frameworks */,
 				B057E9512ECA6F64001C2109 /* SnapKit in Frameworks */,
+				B0A61FE72ED3FEC30000F332 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +93,7 @@
 			packageProductDependencies = (
 				B057E94D2ECA6F5B001C2109 /* Then */,
 				B057E9502ECA6F64001C2109 /* SnapKit */,
+				B0A61FE62ED3FEC30000F332 /* Moya */,
 			);
 			productName = STARBUCKS_iOS;
 			productReference = B057E9112ECA6EBD001C2109 /* STARBUCKS_iOS.app */;
@@ -123,6 +126,7 @@
 			packageReferences = (
 				B057E94C2ECA6F5B001C2109 /* XCRemoteSwiftPackageReference "Then" */,
 				B057E94F2ECA6F64001C2109 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B0A61FE52ED3FEC30000F332 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B057E9122ECA6EBD001C2109 /* Products */;
@@ -157,6 +161,8 @@
 /* Begin XCBuildConfiguration section */
 		B057E9252ECA6EBF001C2109 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = B057E9132ECA6EBD001C2109 /* STARBUCKS_iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -184,6 +190,8 @@
 		};
 		B057E9262ECA6EBF001C2109 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = B057E9132ECA6EBD001C2109 /* STARBUCKS_iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -211,6 +219,8 @@
 		};
 		B057E9272ECA6EBF001C2109 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = B057E9132ECA6EBD001C2109 /* STARBUCKS_iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -274,6 +284,8 @@
 		};
 		B057E9282ECA6EBF001C2109 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = B057E9132ECA6EBD001C2109 /* STARBUCKS_iOS */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -338,7 +350,7 @@
 				B057E9282ECA6EBF001C2109 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B057E9242ECA6EBF001C2109 /* Build configuration list for PBXNativeTarget "STARBUCKS_iOS" */ = {
 			isa = XCConfigurationList;
@@ -347,7 +359,7 @@
 				B057E9262ECA6EBF001C2109 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
@@ -368,6 +380,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		B0A61FE52ED3FEC30000F332 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -380,6 +400,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B057E94F2ECA6F64001C2109 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B0A61FE62ED3FEC30000F332 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0A61FE52ED3FEC30000F332 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
