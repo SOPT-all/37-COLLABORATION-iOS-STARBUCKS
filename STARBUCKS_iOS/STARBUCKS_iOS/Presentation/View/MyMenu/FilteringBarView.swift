@@ -89,7 +89,3 @@ final class FilteringBarView: BaseView {
       }
     }
 }
-
-#Preview {
-  FilteringBarView()
-}

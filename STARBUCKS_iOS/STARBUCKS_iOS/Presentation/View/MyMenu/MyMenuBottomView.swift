@@ -90,7 +90,3 @@ final class MyMenuBottomView: BaseView {
     }
   }
 }
-
-#Preview {
-  MyMenuBottomView()
-}

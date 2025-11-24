@@ -98,7 +98,3 @@ final class FilteringButton: UIButton {
     }
   }
 }
-
-#Preview {
-  FilteringButton(category: .all)
-}
