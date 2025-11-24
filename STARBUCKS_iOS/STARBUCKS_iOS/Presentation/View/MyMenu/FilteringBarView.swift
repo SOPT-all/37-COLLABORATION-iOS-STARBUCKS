@@ -68,7 +68,16 @@ final class FilteringBarView: BaseView {
       
       // 선택 상태 갱신
       selectedCategory = category
-      updateSelection(for: sender)
+      
+      UIView.animate(
+          withDuration: 0.25,
+          animations: {
+              self.updateSelection(for: sender)
+              self.layoutIfNeeded()
+          },
+          completion: nil
+      )
+      
       print("🆒")
       // 뷰컨/상위에서 필터링할 수 있게 콜백
       didChangeCategory?(category)
