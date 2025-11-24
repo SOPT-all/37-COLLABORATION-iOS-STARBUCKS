@@ -54,8 +54,8 @@ final class FilteringBarView: BaseView {
       $0.top.leading.equalToSuperview()
     }
     stackView.snp.makeConstraints {
-        $0.top.equalTo(myMenuLabel.snp.bottom).offset(13)
-        $0.leading.trailing.bottom.equalToSuperview()
+      $0.top.equalTo(myMenuLabel.snp.bottom).offset(13)
+      $0.leading.trailing.bottom.equalToSuperview()
     }
   }
   
@@ -63,17 +63,17 @@ final class FilteringBarView: BaseView {
   
   @objc
   private func filterButtonTapped(_ sender: FilteringButton) {
-      let category = sender.category
-      
-      selectedCategory = category
-      updateSelection(for: sender)
+    let category = sender.category
     
-      didChangeCategory?(category)
-    }
+    selectedCategory = category
+    updateSelection(for: sender)
+    
+    didChangeCategory?(category)
+  }
   
   private func updateSelection(for selectedButton: FilteringButton) {
-      buttons.forEach { button in
-        button.isSelected = (button === selectedButton)
-      }
+    buttons.forEach { button in
+      button.isSelected = (button === selectedButton)
     }
+  }
 }
