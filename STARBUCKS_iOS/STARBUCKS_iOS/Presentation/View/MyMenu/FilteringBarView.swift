@@ -5,9 +5,6 @@
 //  Created by 이서현 on 11/21/25.
 //
 
-<<<<<<< Updated upstream
-import Foundation
-=======
 import UIKit
 
 import SnapKit
@@ -80,7 +77,3 @@ final class FilteringBarView: BaseView {
       }
     }
 }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes

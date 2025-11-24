@@ -5,9 +5,6 @@
 //  Created by 이서현 on 11/23/25.
 //
 
-<<<<<<< Updated upstream
-import Foundation
-=======
 import UIKit
 
 import SnapKit
@@ -93,7 +90,3 @@ final class MyMenuBottomView: BaseView {
     }
   }
 }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
