@@ -28,10 +28,10 @@ final class MyMenuViewController: BaseViewController {
     
     //fixme!!
     filteringBarView.didChangeCategory = { [weak self] category in
-          guard let self else { return }
-          // 여기서 category 에 따라 서버/로컬 데이터 필터링
-          // ex) self.filterMenus(by: category)
-        }
+      guard let self else { return }
+      // 여기서 category 에 따라 서버/로컬 데이터 필터링
+      // ex) self.filterMenus(by: category)
+    }
   }
   
   // MARK: - Set UI
@@ -40,9 +40,10 @@ final class MyMenuViewController: BaseViewController {
     super.setUI()
     view.addSubviews(searchBar, filteringBarView, menuView, bottomView)
     menuView.configure(items: MyMenuModel.mock)
-    
   }
+  
   // MARK: - Set Layout
+  
   override func setLayout() {
     searchBar.snp.makeConstraints {
       $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -63,7 +64,6 @@ final class MyMenuViewController: BaseViewController {
       $0.leading.trailing.equalToSuperview()
       $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
       $0.height.equalTo(56)
-      
     }
   }
 }
