@@ -11,8 +11,6 @@ import UIKit
 import SnapKit
 import Then
 
-
-
 final class RecommendMenuCell: UITableViewCell {
     
     private let userName: String = "가요이"
