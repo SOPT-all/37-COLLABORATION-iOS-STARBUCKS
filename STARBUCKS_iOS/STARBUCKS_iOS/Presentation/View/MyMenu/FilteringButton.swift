@@ -24,7 +24,7 @@ final class FilteringButton: UIButton {
   private let filterNameLabel = UILabel()
   
   override var isSelected: Bool {
-    didSet { updateUI()}
+    didSet { updateUI() }
   }
   
   // MARK: - Life Cycle
@@ -97,8 +97,4 @@ final class FilteringButton: UIButton {
       filterNameLabel.textColor = .starbucksGray600
     }
   }
-}
-
-#Preview {
-  FilteringButton(category: .all)
 }
