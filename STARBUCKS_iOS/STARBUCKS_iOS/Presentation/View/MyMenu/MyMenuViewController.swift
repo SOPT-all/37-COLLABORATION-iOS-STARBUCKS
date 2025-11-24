@@ -47,7 +47,7 @@ final class MyMenuViewController: BaseViewController {
   override func setLayout() {
     searchBar.snp.makeConstraints {
       $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-      $0.leading.trailing.equalToSuperview()
+      $0.horizontalEdges.equalToSuperview()
       $0.height.equalTo(24)
     }
     filteringBarView.snp.makeConstraints {
@@ -58,10 +58,10 @@ final class MyMenuViewController: BaseViewController {
     menuView.snp.makeConstraints {
       $0.top.equalTo(filteringBarView.snp.bottom).offset(13)
       $0.bottom.equalTo(bottomView.snp.top)
-      $0.leading.trailing.equalToSuperview()
+      $0.horizontalEdges.equalToSuperview()
     }
     bottomView.snp.makeConstraints {
-      $0.leading.trailing.equalToSuperview()
+      $0.horizontalEdges.equalToSuperview()
       $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
       $0.height.equalTo(56)
     }
