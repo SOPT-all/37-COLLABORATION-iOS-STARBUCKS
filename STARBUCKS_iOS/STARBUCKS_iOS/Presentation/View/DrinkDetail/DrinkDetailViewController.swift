@@ -11,25 +11,6 @@ import Moya
 import SnapKit
 import Then
 
-//final class DrinkDetailViewController: BaseViewController {
-//    
-//    // MARK: - Properties
-//    
-//    // MARK: - UI Components
-//    
-//    // MARK: - Life Cycle
-//    
-//    // MARK: - Set UI
-//    
-//    // MARK: - Set Layout
-//    
-//    // MARK: - Private Methods
-//    
-//    // MARK: - Public Methods
-//    
-//    // MARK: - Set Actions
-//}
-
 final class DrinkDetailViewController: UIViewController {
 
     private let service = DrinkDetailService()
