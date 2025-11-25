@@ -60,6 +60,10 @@ final class PersonalOption: UIView {
     }
     
     private func setLayout() {
+        self.snp.makeConstraints {
+            $0.height.equalTo(16)
+        }
+        
         deleteButton.snp.makeConstraints {
             $0.centerY.leading.equalToSuperview()
         }
