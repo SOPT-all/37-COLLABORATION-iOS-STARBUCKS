@@ -13,6 +13,7 @@ import Then
 final class FilteringBarView: BaseView {
   
   // MARK: - Properties
+
   var didChangeCategory: ((MenuCategory) -> Void)?
   
   //MARK: - UI Components
@@ -22,7 +23,7 @@ final class FilteringBarView: BaseView {
   private var selectedCategory: MenuCategory = .all
   
   private let stackView = UIStackView()
-  
+
   // MARK: - Set UI
   
   override func setUI() {
@@ -37,6 +38,7 @@ final class FilteringBarView: BaseView {
       $0.distribution = .fillEqually
       $0.spacing = 10
     }
+
     MenuCategory.allCases.forEach {
       let button = FilteringButton(category: $0)
       button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
@@ -63,17 +65,29 @@ final class FilteringBarView: BaseView {
   
   @objc
   private func filterButtonTapped(_ sender: FilteringButton) {
-    let category = sender.category
-    
-    selectedCategory = category
-    updateSelection(for: sender)
-    
-    didChangeCategory?(category)
-  }
+      // 어떤 버튼 눌렸는지
+      let category = sender.category
+      
+      // 선택 상태 갱신
+      selectedCategory = category
+      
+      UIView.animate(
+          withDuration: 0.25,
+          animations: {
+              self.updateSelection(for: sender)
+              self.layoutIfNeeded()
+          },
+          completion: nil
+      )
+      
+      print("🆒")
+      // 뷰컨/상위에서 필터링할 수 있게 콜백
+      didChangeCategory?(category)
+    }
   
   private func updateSelection(for selectedButton: FilteringButton) {
-    buttons.forEach { button in
-      button.isSelected = (button === selectedButton)
+      buttons.forEach { button in
+        button.isSelected = (button === selectedButton)
+      }
     }
-  }
 }
