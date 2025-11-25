@@ -23,7 +23,6 @@ final class MyMenuBottomView: BaseView {
   private let bagIcon = UIImageView()
   private let stackView = UIStackView()
   
-  
   // MARK: - Life Cycle
   
   override init(frame: CGRect) {
@@ -71,8 +70,7 @@ final class MyMenuBottomView: BaseView {
   
   override func setLayout() {
     iconDown.snp.makeConstraints {
-      $0.width.equalTo(20)
-      $0.height.equalTo(20)
+      $0.size.equalTo(20)
     }
     stackView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(16.5)
@@ -84,7 +82,7 @@ final class MyMenuBottomView: BaseView {
       $0.height.equalTo(1)
     }
     bagIcon.snp.makeConstraints {
-      $0.width.height.equalTo(24)
+      $0.size.equalTo(24)
       $0.centerY.equalTo(stackView)
       $0.trailing.equalToSuperview().inset(22)
     }

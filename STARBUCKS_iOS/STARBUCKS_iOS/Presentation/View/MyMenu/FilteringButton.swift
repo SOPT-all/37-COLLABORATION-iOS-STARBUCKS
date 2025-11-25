@@ -24,7 +24,7 @@ final class FilteringButton: UIButton {
   private let filterNameLabel = UILabel()
   
   override var isSelected: Bool {
-    didSet { updateUI()}
+    didSet { updateUI() }
   }
   
   // MARK: - Life Cycle
@@ -62,6 +62,7 @@ final class FilteringButton: UIButton {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //버튼 눌리는지 확인용.. 네트워크 연결하면 지우기
     super.touchesBegan(touches, with: event)
     print("👉 touchesBegan in FilteringButton:", menuCategory.title)
   }
@@ -83,7 +84,6 @@ final class FilteringButton: UIButton {
         $0.center.equalToSuperview()
     }
   }
-  
   
   // MARK: - Private Methods
 

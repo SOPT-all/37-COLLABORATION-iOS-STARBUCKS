@@ -13,15 +13,17 @@ import Then
 final class FilteringBarView: BaseView {
   
   // MARK: - Properties
+
+  var didChangeCategory: ((MenuCategory) -> Void)?
+  
+  //MARK: - UI Components
   
   private let myMenuLabel = UILabel()
   private var buttons: [FilteringButton] = []
   private var selectedCategory: MenuCategory = .all
   
   private let stackView = UIStackView()
-  
-  var didChangeCategory: ((MenuCategory) -> Void)?
-  
+
   // MARK: - Set UI
   
   override func setUI() {
@@ -35,10 +37,8 @@ final class FilteringBarView: BaseView {
       $0.alignment = .fill
       $0.distribution = .fillEqually
       $0.spacing = 10
-      
-      addSubviews(myMenuLabel, stackView)
     }
-    
+
     MenuCategory.allCases.forEach {
       let button = FilteringButton(category: $0)
       button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
@@ -50,12 +50,14 @@ final class FilteringBarView: BaseView {
   // MARK: - Set Layout
   
   override func setLayout() {
+    addSubviews(myMenuLabel, stackView)
+    
     myMenuLabel.snp.makeConstraints {
       $0.top.leading.equalToSuperview()
     }
     stackView.snp.makeConstraints {
-        $0.top.equalTo(myMenuLabel.snp.bottom).offset(13)
-        $0.leading.trailing.bottom.equalToSuperview()
+      $0.top.equalTo(myMenuLabel.snp.bottom).offset(13)
+      $0.leading.trailing.bottom.equalToSuperview()
     }
   }
   
