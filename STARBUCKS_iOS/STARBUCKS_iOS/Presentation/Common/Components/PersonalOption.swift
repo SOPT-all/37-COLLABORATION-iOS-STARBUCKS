@@ -16,16 +16,19 @@ final class PersonalOption: UIView {
     
     var deleteButtonHandler: (() -> Void)?
     private let option: String
+    private let price: String
     
     // MARK: - UI Components
     
     private let deleteButton = UIButton()
     private let optionLabel = UILabel()
+    private let priceLabel = UILabel()
     
     // MARK: - init
     
-    init(option: String) {
+    init(option: String, price: Int) {
         self.option = option
+        self.price = price > 0 ? "\(price)원" : ""
         super.init(frame: .zero)
         
         setUI()
@@ -50,12 +53,19 @@ final class PersonalOption: UIView {
             $0.textColor = .brown01
             $0.font = .pretendard(.caption_r_13)
         }
+        
+        priceLabel.do {
+            $0.text = price
+            $0.textColor = .brown01
+            $0.font = .pretendard(.caption_r_13)
+        }
     }
     
     private func setHierarchy() {
         self.addSubviews(
             deleteButton,
-            optionLabel
+            optionLabel,
+            priceLabel
         )
     }
     
@@ -71,6 +81,11 @@ final class PersonalOption: UIView {
         optionLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(deleteButton.snp.trailing).offset(5)
+        }
+        
+        priceLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview()
         }
     }
     

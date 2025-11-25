@@ -7,9 +7,11 @@
 
 import UIKit
 
+import Moya
 import SnapKit
 import Then
 
+                print("서버 에러")
 final class DrinkDetailViewController: BaseViewController {
     
     // MARK: - Properties
@@ -179,3 +181,4 @@ final class DrinkDetailViewController: BaseViewController {
     
     // MARK: - Set Actions
 }
+
