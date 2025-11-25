@@ -7,11 +7,6 @@
 
 import UIKit
 
-enum MenuCategory {
-    case drink
-    case food
-}
-
 struct MyMenuModel {
     let id: Int
     let customName: String
