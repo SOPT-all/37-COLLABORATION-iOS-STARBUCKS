@@ -38,13 +38,11 @@ final class WhatsNewItemCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         
         cardImageView.do {
-          
-              $0.contentMode = .scaleAspectFill
-              $0.clipsToBounds = true
-              $0.backgroundColor = .starbucksGray200
-              $0.layer.cornerRadius = 12
-            
-    }
+            $0.contentMode = .scaleAspectFill
+            $0.clipsToBounds = true
+            $0.backgroundColor = .starbucksGray200
+            $0.layer.cornerRadius = 12
+        }
         
         titleLabel.do {
             $0.font = .pretendard(.head_m_16)
@@ -102,19 +100,19 @@ struct WhatsNewItem {
     let description: String
     
     static let dummyData: [WhatsNewItem] = [
-      WhatsNewItem(
-        image: UIImage(),
-        title: "각인 뉴턴 캔디 핑크 텀블러 355...",
-        description: "러블리한 핑크빛 각인 텀블러를 쏙데이 헤택과 함께 만나보세요!"
-      ),
-      WhatsNewItem(
-        image: UIImage(),
-        title: "2025 WINTER e-F...",
-        description: "스타벅스 삼성카드로 2025 WINTER e-FREQUENCY 참여시 별★..."
-      ),
-      WhatsNewItem(
-        image: UIImage(),
-        title: "새로운 소식 3",
-        description: "세 번째 소식입니다"
-      )
+        WhatsNewItem(
+            image: UIImage(),
+            title: "각인 뉴턴 캔디 핑크 텀블러 355...",
+            description: "러블리한 핑크빛 각인 텀블러를 쓱데이 헤택과 함께 만나보세요!"
+        ),
+        WhatsNewItem(
+            image: UIImage(),
+            title: "2025 WINTER e-F...",
+            description: "스타벅스 삼성카드로 2025 WINTER e-FREQUENCY 참여시 별★..."
+        ),
+        WhatsNewItem(
+            image: UIImage(),
+            title: "새로운 소식 3",
+            description: "세 번째 소식입니다"
+        )
     ]}

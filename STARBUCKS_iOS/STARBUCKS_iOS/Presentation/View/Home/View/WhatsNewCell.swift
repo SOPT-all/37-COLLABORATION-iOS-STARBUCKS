@@ -86,14 +86,13 @@ final class WhatsNewCell: UITableViewCell {
         
         seeAllLabel.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
-            $0.trailing.equalToSuperview().offset(-26)
+            $0.trailing.equalToSuperview().inset(26)
         }
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(11)
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.bottom.equalToSuperview()
             $0.height.equalTo(269)
-            $0.bottom.equalToSuperview()
         }
     }
     

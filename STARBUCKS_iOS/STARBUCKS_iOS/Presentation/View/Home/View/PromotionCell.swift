@@ -34,12 +34,10 @@ final class PromotionCell: UITableViewCell {
     
     private func setLayout() {
         promotionImage.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.verticalEdges.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(20)
             $0.width.equalTo(331)
             $0.height.equalTo(394)
-            $0.bottom.equalToSuperview()
         }
     }
 }

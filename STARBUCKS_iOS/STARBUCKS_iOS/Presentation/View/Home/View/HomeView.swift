@@ -78,13 +78,13 @@ final class HomeView: BaseView {
         }
 
         headerContainer.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.horizontalEdges.equalToSuperview()
             $0.height.equalTo(237)
         }
 
         chipCollectionView.snp.makeConstraints {
             $0.bottom.equalTo(headerContainer.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(60)
         }
 
@@ -94,8 +94,7 @@ final class HomeView: BaseView {
 
         titleLabel.snp.makeConstraints {
             $0.centerY.equalTo(headerImage)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(20)
         }
 
         whiteOverlayView.snp.makeConstraints {

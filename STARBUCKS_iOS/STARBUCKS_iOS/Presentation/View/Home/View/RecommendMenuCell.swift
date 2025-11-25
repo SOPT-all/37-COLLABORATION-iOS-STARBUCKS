@@ -91,21 +91,19 @@ final class RecommendMenuCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
         
         subtitleLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(subtitleLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(186)
-            $0.bottom.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().inset(20)
         }
     }
     

@@ -41,7 +41,7 @@ final class QuickOrderCell: UITableViewCell {
         
         titleLabel.do {
             $0.text = "Quick Order"
-            $0.font = .pretendard(weight: .Bold, size: 24)
+            $0.font = .pretendard(.head_b_20)
             $0.textColor = .black
         }
         
@@ -72,13 +72,12 @@ final class QuickOrderCell: UITableViewCell {
     private func setLayout() {
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().inset(20)
+            $0.top.leading.equalToSuperview().inset(20)
         }
         
         mainCollectionView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
             $0.height.equalTo(164)
         }

@@ -106,9 +106,7 @@ final class QuickOrderItemCell: UICollectionViewCell {
             $0.axis = .horizontal
             $0.spacing = 4
             $0.alignment = .center
-            $0.addArrangedSubview(temperatureLabel)
-            $0.addArrangedSubview(separatorLabel)
-            $0.addArrangedSubview(sizeLabel)
+            $0.addArrangedSubviews(temperatureLabel, separatorLabel, sizeLabel)
         }
         
         footerContainer.do {
@@ -156,13 +154,13 @@ final class QuickOrderItemCell: UICollectionViewCell {
     private func setupLayout() {
         drinkImageView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(16)
-            $0.width.height.equalTo(50)
+            $0.size.equalTo(50)
         }
         
         favoriteImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.trailing.equalToSuperview().inset(16)
-            $0.width.height.equalTo(24)
+            $0.size.equalTo(24)
         }
         
         titleLabel.snp.makeConstraints {
@@ -177,7 +175,7 @@ final class QuickOrderItemCell: UICollectionViewCell {
         }
         
         footerContainer.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.horizontalEdges.bottom.equalToSuperview()
             $0.height.equalTo(48)
             $0.top.greaterThanOrEqualTo(infoStackView.snp.bottom).offset(12)
         }
@@ -185,7 +183,7 @@ final class QuickOrderItemCell: UICollectionViewCell {
         storeIconView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(16)
+            $0.size.equalTo(16)
         }
         
         storeLabel.snp.makeConstraints {
@@ -201,7 +199,7 @@ final class QuickOrderItemCell: UICollectionViewCell {
         }
         
         topSeparator.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
             $0.bottom.equalTo(footerContainer.snp.top)
         }

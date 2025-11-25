@@ -135,6 +135,16 @@ extension HomeViewController: UITableViewDelegate {
         case promotion
         case onlineStore
         case whatsNew
+        
+        var cellType: UITableViewCell.Type {
+            switch self {
+            case .quickOrder:    return QuickOrderCell.self
+            case .recommendMenu: return RecommendMenuCell.self
+            case .promotion:     return PromotionCell.self
+            case .onlineStore:   return OnlineStoreCell.self
+            case .whatsNew:      return WhatsNewCell.self
+            }
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -145,51 +155,17 @@ extension HomeViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension HomeViewController: UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let section = MainTableViewSection(rawValue: indexPath.section) else {
             return UITableViewCell()
         }
-        switch section {
-        case .quickOrder:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: QuickOrderCell.identifier
-            ) as? QuickOrderCell else {
-                return UITableViewCell()
-            }
-            return cell
-        case .recommendMenu:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: RecommendMenuCell.identifier
-            ) as? RecommendMenuCell else {
-                return UITableViewCell()
-            }
-            return cell
-        case .promotion:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: PromotionCell.identifier
-            ) as? PromotionCell else {
-                return UITableViewCell()
-            }
-            return cell
-        case .onlineStore:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: OnlineStoreCell.identifier
-            ) as? OnlineStoreCell else {
-                return UITableViewCell()
-            }
-            return cell
-        case .whatsNew:
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: WhatsNewCell.identifier
-            ) as? WhatsNewCell else {
-                return UITableViewCell()
-            }
-            return cell
-        }
+        let identifier = section.cellType.identifier
+        
+        return tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell()
     }
 }
