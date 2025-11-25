@@ -37,7 +37,6 @@ final class FilteringBarView: BaseView {
       $0.distribution = .fillEqually
       $0.spacing = 10
     }
-    
     MenuCategory.allCases.forEach {
       let button = FilteringButton(category: $0)
       button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
