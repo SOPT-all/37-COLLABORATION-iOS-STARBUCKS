@@ -40,7 +40,7 @@ extension MainTab {
         switch self {
         case .home: return HomeViewController()
         case .pay: return PayViewController()
-        case .order: return OrderViewController()
+        case .order: return MyMenuViewController()
         case .shop: return ShopViewController()
         case .other: return OtherViewController()
         }
