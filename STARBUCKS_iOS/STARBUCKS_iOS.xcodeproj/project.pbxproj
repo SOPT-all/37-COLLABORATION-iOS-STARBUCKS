@@ -10,6 +10,7 @@
 		B057E94E2ECA6F5B001C2109 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B057E94D2ECA6F5B001C2109 /* Then */; };
 		B057E9512ECA6F64001C2109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B057E9502ECA6F64001C2109 /* SnapKit */; };
 		B0A61FE72ED3FEC30000F332 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = B0A61FE62ED3FEC30000F332 /* Moya */; };
+		B0A623512ED5D0530000F332 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B0A623502ED5D0530000F332 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A623512ED5D0530000F332 /* Kingfisher in Frameworks */,
 				B057E94E2ECA6F5B001C2109 /* Then in Frameworks */,
 				B057E9512ECA6F64001C2109 /* SnapKit in Frameworks */,
 				B0A61FE72ED3FEC30000F332 /* Moya in Frameworks */,
@@ -94,6 +96,7 @@
 				B057E94D2ECA6F5B001C2109 /* Then */,
 				B057E9502ECA6F64001C2109 /* SnapKit */,
 				B0A61FE62ED3FEC30000F332 /* Moya */,
+				B0A623502ED5D0530000F332 /* Kingfisher */,
 			);
 			productName = STARBUCKS_iOS;
 			productReference = B057E9112ECA6EBD001C2109 /* STARBUCKS_iOS.app */;
@@ -127,6 +130,7 @@
 				B057E94C2ECA6F5B001C2109 /* XCRemoteSwiftPackageReference "Then" */,
 				B057E94F2ECA6F64001C2109 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B0A61FE52ED3FEC30000F332 /* XCRemoteSwiftPackageReference "Moya" */,
+				B0A6234F2ED5D0530000F332 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B057E9122ECA6EBD001C2109 /* Products */;
@@ -388,6 +392,14 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		B0A6234F2ED5D0530000F332 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -405,6 +417,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B0A61FE52ED3FEC30000F332 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		B0A623502ED5D0530000F332 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0A6234F2ED5D0530000F332 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
