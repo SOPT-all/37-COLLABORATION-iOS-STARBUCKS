@@ -42,8 +42,7 @@ final class RecommendMenuCell: UITableViewCell {
     // MARK: - Setup UI
     
     private func setupUI() {
-        
-        contentView.backgroundColor = .white
+        self.backgroundColor = .white
         selectionStyle = .none
         
         titleLabel.do {
@@ -60,7 +59,7 @@ final class RecommendMenuCell: UITableViewCell {
         
         collectionViewLayout.do {
             $0.scrollDirection = .horizontal
-            $0.minimumLineSpacing = 12
+            $0.minimumLineSpacing = 16
             $0.minimumInteritemSpacing = 0
             $0.sectionInset = UIEdgeInsets(
                 top: 0, left: 16, bottom: 0, right: 16
@@ -91,12 +90,12 @@ final class RecommendMenuCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
-            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
         subtitleLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
-            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
         collectionView.snp.makeConstraints {
