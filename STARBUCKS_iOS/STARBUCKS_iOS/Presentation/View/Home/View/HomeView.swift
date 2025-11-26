@@ -33,9 +33,13 @@ final class HomeView: BaseView {
     
     // MARK: - Set UI
     override func setUI() {
+        backgroundColor = .white
         self.addSubviews(mainTableView, headerContainer, chipCollectionView)
         headerContainer.addSubviews(headerImage, titleLabel, whiteOverlayView)
-
+        mainTableView.do {
+            $0.backgroundColor = .white
+        }
+        
         headerImage.do {
             $0.image = UIImage(resource: .imageHomeTopBanner)
             $0.contentMode = .scaleAspectFill
