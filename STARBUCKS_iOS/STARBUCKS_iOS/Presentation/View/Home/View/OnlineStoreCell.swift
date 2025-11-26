@@ -159,7 +159,6 @@ final class OnlineStoreCell: UITableViewCell {
             $0.leading.equalToSuperview().offset(20)
         }
 
-        // First Banner
         backgroundView1.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview().inset(20)
@@ -188,7 +187,6 @@ final class OnlineStoreCell: UITableViewCell {
             $0.height.equalTo(117)
         }
         
-        // Second Banner
         backgroundView2.snp.makeConstraints {
             $0.top.equalTo(backgroundView1.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(20)
