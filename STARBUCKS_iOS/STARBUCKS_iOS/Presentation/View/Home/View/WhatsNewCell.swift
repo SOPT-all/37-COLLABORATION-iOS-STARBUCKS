@@ -41,7 +41,7 @@ final class WhatsNewCell: UITableViewCell {
     // MARK: - Setup
     
     private func setupUI() {
-        self.contentView.backgroundColor = .white
+        self.backgroundColor = .white
         self.selectionStyle = .none
         
         titleLabel.do {
@@ -90,7 +90,7 @@ final class WhatsNewCell: UITableViewCell {
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(11)
+            $0.top.equalTo(titleLabel.snp.bottom)
             $0.horizontalEdges.bottom.equalToSuperview()
             $0.height.equalTo(269)
         }
