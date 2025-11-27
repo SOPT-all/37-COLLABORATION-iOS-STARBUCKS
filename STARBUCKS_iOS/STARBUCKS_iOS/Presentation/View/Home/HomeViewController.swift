@@ -183,34 +183,6 @@ extension HomeViewController: UITableViewDataSource {
 //MARK: getMenuAPI
 
 extension HomeViewController {
-
-    // Mock 데이터로 테스트
-    func testWithMockData() {
-        let mockMenus = [
-            MyMenuDTO(
-                myMenuId: 1,
-                myMenuName: "테스트 아메리카노",
-                myMenuOption: "ICED | Tall | 샷 추가",
-                myMenuImage: "https://mobile5-starbucks.s3.ap-northeast-2.amazonaws.com/cafe-americano-ice-home.jpg"
-            ),
-            MyMenuDTO(
-                myMenuId: 2,
-                myMenuName: "테스트 라떼",
-                myMenuOption: "HOT | Grande",
-                myMenuImage: "https://mobile5-starbucks.s3.ap-northeast-2.amazonaws.com/cafe-latte-hot-home.jpg"
-            ),
-            MyMenuDTO(
-                myMenuId: 3,
-                myMenuName: "테스트 프라푸치노",
-                myMenuOption: "ICED | Venti | 휘핑 추가",
-                myMenuImage: "https://mobile5-starbucks.s3.ap-northeast-2.amazonaws.com/java-chip-frappuccino-ice-home.jpg"
-            )
-        ]
-
-        self.myMenuList = mockMenus
-        self.homeView.mainTableView.reloadData()
-        
-    }
     
     func getMyMenuList() {
         service.getMyMenuList { [weak self] result in
