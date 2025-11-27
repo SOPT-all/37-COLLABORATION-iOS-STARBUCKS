@@ -15,7 +15,6 @@ final class DrinkInfoNoticeView: BaseView {
     // MARK: - UI Components
     
     private let stackView = UIStackView()
-    
     private let warningLabel = UILabel()
     private let noticeLabel = UILabel()
     
