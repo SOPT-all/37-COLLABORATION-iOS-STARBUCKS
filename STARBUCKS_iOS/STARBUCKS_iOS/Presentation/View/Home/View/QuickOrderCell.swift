@@ -12,7 +12,7 @@ import Then
 
 final class QuickOrderCell: UITableViewCell {
     
-    //MARK: //Properties
+    //MARK: - Properties
     
     private var myMenuList: [MyMenuDTO] = []
     
@@ -70,7 +70,9 @@ final class QuickOrderCell: UITableViewCell {
                 forCellWithReuseIdentifier: FinalCardCell.identifier)
         }
         
-        contentView.addSubviews(titleLabel, myMenuButton, mainCollectionView)
+        contentView.addSubviews(titleLabel,
+                                myMenuButton,
+                                mainCollectionView)
     }
     
     // MARK: - Layout
@@ -78,7 +80,7 @@ final class QuickOrderCell: UITableViewCell {
     private func setLayout() {
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().offset(20)
         }
         
