@@ -14,7 +14,7 @@ final class DrinkInfoHeaderView: BaseView {
     
     // MARK: - UI Components
     
-    var imageView = UIImageView()
+    private var imageView = UIImageView()
     private var scanButton = UIButton()
     
     private let nameStackView = UIStackView()
@@ -22,9 +22,9 @@ final class DrinkInfoHeaderView: BaseView {
     private let newLabel = UILabel()
     private let drinkEngNameLabel = UILabel()
     private let drinkDetailLabel = UILabel()
-
+    
     private var priceLabel = UILabel()
-
+    
     private let noticeView = UIView()
     private let warningLabel = UILabel()
     private let noticeLabel = UILabel()
@@ -49,7 +49,7 @@ final class DrinkInfoHeaderView: BaseView {
         
         nameStackView.do {
             $0.axis = .horizontal
-            $0.distribution = .fill
+            $0.distribution = .fillProportionally
             $0.alignment = .center
         }
         
@@ -157,14 +157,16 @@ final class DrinkInfoHeaderView: BaseView {
         }
     }
     
-
-    public func setDrinkName(_ name: String) {
-        drinkNameLabel.text = name
+    public func setImage(url: URL) {
+        imageView.kf.setImage(with: url)
     }
-    
-    public func setInfo(name: String, engName: String, detail: String) {
+
+    public func setDrinkName(name: String, engName: String) {
         drinkNameLabel.text = name
         drinkEngNameLabel.text = engName
+    }
+    
+    public func setInfo(detail: String) {
         drinkDetailLabel.text = detail
     }
 
