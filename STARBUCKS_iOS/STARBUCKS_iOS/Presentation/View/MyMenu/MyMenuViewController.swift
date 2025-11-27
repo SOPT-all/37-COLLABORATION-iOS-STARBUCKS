@@ -25,6 +25,11 @@ final class MyMenuViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -51,12 +56,12 @@ final class MyMenuViewController: BaseViewController {
         }
         
         menuView.delegate = self
+        searchBar.leftButtonHandler = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
         
         filteringBarView.didChangeCategory = { [weak self] category in
             self?.applyFilter(category)
-            
-            // 여기서 category 에 따라 서버/로컬 데이터 필터링
-            // ex) self.filterMenus(by: category)
         }
     }
     
@@ -110,7 +115,8 @@ extension MyMenuViewController: MyMenuListViewDelegate {
     func didTapAddMenu(_ menu: MyMenuModel) {
         guard menu.id == 1 else { return }
         
-        let vc = DrinkDetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let detailVC = DrinkDetailViewController()
+        detailVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
