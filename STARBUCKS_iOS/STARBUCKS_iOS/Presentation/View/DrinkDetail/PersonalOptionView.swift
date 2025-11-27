@@ -77,7 +77,14 @@ final class PersonalOptionView: BaseView {
     // MARK: - Set Layout
     
     override func setLayout() {
-        self.addSubviews(titleLabel, detailButton, resetLabel, resetButton, tipView, optionStackView)
+        self.addSubviews(
+            titleLabel,
+            detailButton,
+            resetLabel,
+            resetButton,
+            tipView,
+            optionStackView
+        )
         tipView.addSubview(tipLabel)
         
         titleLabel.snp.makeConstraints {
@@ -146,8 +153,6 @@ extension PersonalOptionView {
                     self.onTapOptionDelete?(currentIndex)
                 }
             }
-
-
             optionStackView.addArrangedSubview(row)
         }
     }

@@ -39,14 +39,19 @@ final class DrinkDetailView: BaseView {
     var cupSelectionView = CupSelectionView()
     var campaignView = CampaignView()
     var personalView = PersonalOptionView()
-    
-    // MARK: - Life Cycle
-    
+
     // MARK: - Set UI
     
     override func setUI() {
         self.backgroundColor = .white
-        self.addSubviews(drinkInfoHeaderView, segmentView, drinkNutritionInfoVRow, cupSelectionView, campaignView, personalView)
+        self.addSubviews(
+            drinkInfoHeaderView,
+            segmentView,
+            drinkNutritionInfoVRow,
+            cupSelectionView,
+            campaignView,
+            personalView
+        )
         cupSelectionView.delegate = self
         personalView.onTapOptionDelete = { [weak self] index in
             self?.onDeleteOption?(index)

@@ -68,8 +68,15 @@ final class CupSelectionView: BaseView {
     // MARK: - Set Layout
     
     override func setLayout() {
-        addSubviews(titleLabel, sizeStackView)
-        sizeStackView.addArrangedSubviews(tallSizeImage, grandeSizeImage, ventiSizeImage)
+        addSubviews(
+            titleLabel,
+            sizeStackView
+        )
+        sizeStackView.addArrangedSubviews(
+            tallSizeImage,
+            grandeSizeImage,
+            ventiSizeImage
+        )
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(10)

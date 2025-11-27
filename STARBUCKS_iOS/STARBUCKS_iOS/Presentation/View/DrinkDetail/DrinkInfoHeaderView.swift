@@ -32,9 +32,23 @@ final class DrinkInfoHeaderView: BaseView {
     // MARK: - Set UI
     
     override func setUI() {
-        self.addSubviews(imageView, scanButton, nameStackView, drinkEngNameLabel, drinkDetailLabel, priceLabel, noticeView)
-        nameStackView.addArrangedSubviews(drinkNameLabel, newLabel)
-        noticeView.addSubviews(warningLabel, noticeLabel)
+        self.addSubviews(
+            imageView,
+            scanButton,
+            nameStackView,
+            drinkEngNameLabel,
+            drinkDetailLabel,
+            priceLabel,
+            noticeView
+        )
+        nameStackView.addArrangedSubviews(
+            drinkNameLabel,
+            newLabel
+        )
+        noticeView.addSubviews(
+            warningLabel,
+            noticeLabel
+        )
         
         self.backgroundColor = .white
         

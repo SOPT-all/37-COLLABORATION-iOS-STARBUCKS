@@ -53,7 +53,10 @@ final class DrinkInfoNoticeView: BaseView {
     
     override func setLayout() {
         addSubviews(stackView)
-        stackView.addArrangedSubviews(warningLabel, noticeLabel)
+        stackView.addArrangedSubviews(
+            warningLabel,
+            noticeLabel
+        )
         
         stackView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(9)

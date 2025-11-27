@@ -53,7 +53,11 @@ final class DrinkDetailViewController: BaseViewController {
     // MARK: - Set UI
     
     override func setUI() {
-        view.addSubviews(shareBar, scrollView, saveOptionView)
+        view.addSubviews(
+            shareBar,
+            scrollView,
+            saveOptionView
+        )
         scrollView.addSubviews(drinkDetailView)
         
         view.bringSubviewToFront(shareBar)
@@ -140,22 +144,22 @@ final class DrinkDetailViewController: BaseViewController {
     
     private func resetOption() {
         drinkDetailView.personalView.onTapReset = { [weak self] in
-            let alret = Alert(type: .reset)
+            let alert = Alert(type: .reset)
             let backView = UIView()
             backView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            self?.view.addSubviews(alret, backView)
-            self?.view.bringSubviewToFront(alret)
+            self?.view.addSubviews(alert, backView)
+            self?.view.bringSubviewToFront(alert)
             backView.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
-            alret.snp.makeConstraints {
+            alert.snp.makeConstraints {
                 $0.center.equalToSuperview()
             }
             
-            alret.cancelButtonTap = {
+            alert.cancelButtonTap = {
                 backView.removeFromSuperview()
             }
-            alret.confirmButtonTap = {
+            alert.confirmButtonTap = {
                 backView.removeFromSuperview()
                 self?.optionPrice = 0
                 self?.drinkDetailView.personalView.resetOptions()
@@ -167,23 +171,23 @@ final class DrinkDetailViewController: BaseViewController {
     private func deleteOption() {
         drinkDetailView.onDeleteOption = { [weak self] index in
             let optionName = self?.drinkDetailEntity?.personalOptions[index].name
-            let alret = Alert(type: .delete, subtitle: optionName ?? "")
+            let alert = Alert(type: .delete, subtitle: optionName ?? "")
             let backView = UIView()
             backView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-            self?.view.addSubviews(alret, backView)
-            self?.view.bringSubviewToFront(alret)
+            self?.view.addSubviews(alert, backView)
+            self?.view.bringSubviewToFront(alert)
             backView.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
             
-            alret.snp.makeConstraints {
+            alert.snp.makeConstraints {
                 $0.center.equalToSuperview()
             }
 
-            alret.cancelButtonTap = {
+            alert.cancelButtonTap = {
                 backView.removeFromSuperview()
             }
-            alret.confirmButtonTap = {
+            alert.confirmButtonTap = {
                 guard let self = self else { return }
                 backView.removeFromSuperview()
 

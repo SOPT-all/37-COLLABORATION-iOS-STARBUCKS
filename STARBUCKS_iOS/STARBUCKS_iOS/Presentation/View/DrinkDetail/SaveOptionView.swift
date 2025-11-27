@@ -73,8 +73,16 @@ final class SaveOptionView: BaseView {
     // MARK: - Set Layout
     
     override func setLayout() {
-        addSubviews(hotOptionLabel, separatorLabel, sizeOptionLabel, buttonStackView)
-        buttonStackView.addArrangedSubviews(addButton, saveButton)
+        addSubviews(
+            hotOptionLabel,
+            separatorLabel,
+            sizeOptionLabel,
+            buttonStackView
+        )
+        buttonStackView.addArrangedSubviews(
+            addButton,
+            saveButton
+        )
         
         hotOptionLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(11)

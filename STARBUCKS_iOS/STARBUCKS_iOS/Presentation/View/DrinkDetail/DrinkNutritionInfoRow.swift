@@ -34,7 +34,10 @@ final class DrinkNutritionInfoRow: BaseView {
     // MARK: - Set Layout
     
     override func setLayout() {
-        self.addSubviews(titleLabel, detailButton)
+        self.addSubviews(
+            titleLabel,
+            detailButton
+        )
         
         titleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)

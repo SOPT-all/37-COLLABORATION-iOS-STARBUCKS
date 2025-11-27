@@ -64,8 +64,15 @@ final class CampaignView: BaseView {
     // MARK: - Set Layout
     
     override func setLayout() {
-        self.addSubviews(campaignLabel, personalCupStackView, ecoImage)
-        personalCupStackView.addArrangedSubviews(checkButton, personalCupLabel)
+        self.addSubviews(
+            campaignLabel,
+            personalCupStackView,
+            ecoImage
+        )
+        personalCupStackView.addArrangedSubviews(
+            checkButton,
+            personalCupLabel
+        )
         
         campaignLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(23)
@@ -97,5 +104,4 @@ final class CampaignView: BaseView {
         
         checkButton.setImage(image, for: .normal)
     }
-    
 }
