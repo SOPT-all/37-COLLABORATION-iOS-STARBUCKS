@@ -63,9 +63,8 @@ final class FilteringButton: UIButton {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //버튼 눌리는지 확인용.. 네트워크 연결하면 지우기
         super.touchesBegan(touches, with: event)
-        print("👉 touchesBegan in FilteringButton:", menuCategory.title)
+        print("touchesBegan in FilteringButton:", menuCategory.title)
     }
     
     // MARK: - Set Layout
@@ -90,8 +89,7 @@ final class FilteringButton: UIButton {
     
     private func updateUI() {
         if isSelected {
-            print("updateUI")
-            menuCategoryView.backgroundColor = .starbucksGray900 //색상확인
+            menuCategoryView.backgroundColor = .starbucksGray900
             filterNameLabel.textColor = .white
         } else {
             menuCategoryView.backgroundColor = .white

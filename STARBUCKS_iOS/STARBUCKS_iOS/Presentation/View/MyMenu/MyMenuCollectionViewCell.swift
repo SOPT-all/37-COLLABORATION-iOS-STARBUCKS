@@ -7,10 +7,15 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
-class MyMenuCollectionViewCell: UICollectionViewCell {
+protocol MyMenuCollectionViewCellDelegate: AnyObject {
+    func didTapaddMenuButton(in cell: MyMenuCollectionViewCell)
+}
+
+final class MyMenuCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
@@ -28,6 +33,8 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
     private let dividerView = UIView()
     private var titleStackView = UIStackView()
     private var buttonStackView = UIStackView()
+
+    weak var delegate: MyMenuCollectionViewCellDelegate?
     
     // MARK: - Life Cycle
     
@@ -36,6 +43,10 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
         setStyle()
         setUI()
         setLayout()
+        
+        contentView.layoutIfNeeded()
+        imageView.layer.cornerRadius = imageView.frame.width / 2
+        imageView.layer.masksToBounds = true
     }
     
     required init?(coder: NSCoder) {
@@ -63,6 +74,8 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
         detailLabel.do {
             $0.font = UIFont.pretendard(.caption_r_13)
             $0.textColor = .starbucksGray600
+            $0.numberOfLines = 1
+            $0.lineBreakMode = .byTruncatingTail
         }
         
         priceLabel.do {
@@ -114,6 +127,7 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
         dividerView.do {
             $0.backgroundColor = .starbucksGray200
         }
+        addMenuButton.addTarget(self, action: #selector(addMenuButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Set UI
@@ -175,6 +189,7 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
         detailLabel.snp.makeConstraints {
             $0.top.equalTo(officialNameLabel.snp.bottom).offset(6)
             $0.leading.equalTo(titleStackView)
+            $0.trailing.equalToSuperview().inset(16)
         }
         
         priceLabel.snp.makeConstraints {
@@ -199,13 +214,31 @@ class MyMenuCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK: - Configure
+    // MARK: - Method
+    
+    func setPrice(_ price: String) {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        
+        if let intValue = Int(price),
+           let formatted = formatter.string(from: NSNumber(value: intValue)) {
+            priceLabel.text = "\(formatted)원"
+        } else {
+            priceLabel.text = "\(price)원"
+        }
+    }
     
     func configure(with model: MyMenuModel) {
         customNameLabel.text = model.customName
         officialNameLabel.text = model.officialName
         detailLabel.text = model.detail
-        priceLabel.text = model.price
-        imageView.image = .imageHomeBanner7
+        setPrice(model.price)
+        if let url = URL(string: model.imageName) {
+            imageView.kf.setImage(with: url)
+        }
+    }
+    
+    @objc private func addMenuButtonTapped() {
+        delegate?.didTapaddMenuButton(in: self)
     }
 }

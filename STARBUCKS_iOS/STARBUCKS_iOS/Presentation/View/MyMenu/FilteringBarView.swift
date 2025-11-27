@@ -45,6 +45,10 @@ final class FilteringBarView: BaseView {
             stackView.addArrangedSubview(button)
             buttons.append(button)
         }
+        
+        if let defaultButton = buttons.first(where: { $0.category == .all }) {
+            defaultButton.isSelected = true
+        }
     }
     
     // MARK: - Set Layout
@@ -65,10 +69,8 @@ final class FilteringBarView: BaseView {
     
     @objc
     private func filterButtonTapped(_ sender: FilteringButton) {
-        // 어떤 버튼 눌렸는지
+      
         let category = sender.category
-        
-        // 선택 상태 갱신
         selectedCategory = category
         
         UIView.animate(
@@ -79,9 +81,6 @@ final class FilteringBarView: BaseView {
             },
             completion: nil
         )
-        
-        print("🆒")
-        // 뷰컨/상위에서 필터링할 수 있게 콜백
         didChangeCategory?(category)
     }
     
