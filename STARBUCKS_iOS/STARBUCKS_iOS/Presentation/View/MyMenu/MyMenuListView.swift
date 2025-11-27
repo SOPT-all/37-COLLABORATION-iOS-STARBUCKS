@@ -90,6 +90,11 @@ extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, 
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let menu = items[indexPath.item]
+        delegate?.didTapAddMenu(menu)
+    }
+    
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
