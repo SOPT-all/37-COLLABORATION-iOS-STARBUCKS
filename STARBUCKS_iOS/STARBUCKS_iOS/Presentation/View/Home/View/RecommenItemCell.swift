@@ -49,7 +49,7 @@ final class RecommendMenuItemCell: UICollectionViewCell {
     
     private func setupLayout() {
         menuImageView.snp.makeConstraints {
-            $0.top.equalToSuperview()           // ✅ 상단 고정
+            $0.top.equalToSuperview()     
             $0.centerX.equalToSuperview()  
             $0.width.height.equalTo(122)
         }
