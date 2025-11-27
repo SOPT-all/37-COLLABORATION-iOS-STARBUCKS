@@ -38,6 +38,9 @@ final class DrinkDetailViewController: BaseViewController {
         resetOption()
         deleteOption()
         bindCallbacks()
+        shareBar.leftButtonHandler = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -205,4 +208,3 @@ final class DrinkDetailViewController: BaseViewController {
         self.drinkDetailView.setPrice(price: price)
     }
 }
-
