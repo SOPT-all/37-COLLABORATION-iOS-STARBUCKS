@@ -33,6 +33,7 @@ final class MyMenuCollectionViewCell: UICollectionViewCell {
     private let dividerView = UIView()
     private var titleStackView = UIStackView()
     private var buttonStackView = UIStackView()
+
     weak var delegate: MyMenuCollectionViewCellDelegate?
     
     // MARK: - Life Cycle

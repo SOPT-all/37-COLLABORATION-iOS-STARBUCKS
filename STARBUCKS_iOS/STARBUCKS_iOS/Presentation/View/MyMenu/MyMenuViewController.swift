@@ -108,7 +108,6 @@ final class MyMenuViewController: BaseViewController {
 
 extension MyMenuViewController: MyMenuListViewDelegate {
     func didTapAddMenu(_ menu: MyMenuModel) {
-        print("담기 버튼 탭: \(menu.customName)")
         guard menu.id == 1 else { return }
         
         let vc = DrinkDetailViewController()

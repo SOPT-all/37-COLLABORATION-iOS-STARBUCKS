@@ -29,6 +29,10 @@ final class TabBarController: UITabBarController {
         viewControllers = controllers
         tabBar.tintColor = .starbucksGreen500
         tabBar.unselectedItemTintColor = .starbucksGray500
-        tabBar.backgroundColor = .starbucksGray100
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .starbucksGray100
+        tabBar.standardAppearance = tabBarAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
     }
 }

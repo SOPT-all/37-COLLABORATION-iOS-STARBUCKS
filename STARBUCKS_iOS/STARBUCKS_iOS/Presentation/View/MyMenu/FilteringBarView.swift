@@ -69,6 +69,7 @@ final class FilteringBarView: BaseView {
     
     @objc
     private func filterButtonTapped(_ sender: FilteringButton) {
+      
         let category = sender.category
         selectedCategory = category
         

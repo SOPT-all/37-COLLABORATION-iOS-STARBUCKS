@@ -14,7 +14,7 @@ final class Segment: UIControl {
     
     // MARK: - Properties
     
-    private var isHotSelected = false {
+    var isHotSelected = false {
         didSet { updateUI(animated: true) }
     }
     
@@ -82,7 +82,6 @@ final class Segment: UIControl {
     }
     
     private func setLayout() {
-        
         self.snp.makeConstraints {
             $0.height.equalTo(36)
             $0.width.equalTo(341)
@@ -101,12 +100,12 @@ final class Segment: UIControl {
         }
         
         hotLabel.snp.makeConstraints {
-            $0.left.top.bottom.equalToSuperview()
+            $0.leading.verticalEdges.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.5)
         }
         
         icedLabel.snp.makeConstraints {
-            $0.right.top.bottom.equalToSuperview()
+            $0.trailing.verticalEdges.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.5)
         }
     }
