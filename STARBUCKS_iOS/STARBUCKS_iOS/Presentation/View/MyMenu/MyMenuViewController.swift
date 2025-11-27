@@ -58,6 +58,8 @@ final class MyMenuViewController: BaseViewController {
             // 여기서 category 에 따라 서버/로컬 데이터 필터링
             // ex) self.filterMenus(by: category)
         }
+        
+        popToHomeViewController()
     }
     
     // MARK: - Set UI
@@ -103,6 +105,12 @@ final class MyMenuViewController: BaseViewController {
         }
         
         menuView.configure(items: filteredMenuList)
+    }
+    
+    private func popToHomeViewController() {
+        searchBar.leftButtonHandler = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }
 
