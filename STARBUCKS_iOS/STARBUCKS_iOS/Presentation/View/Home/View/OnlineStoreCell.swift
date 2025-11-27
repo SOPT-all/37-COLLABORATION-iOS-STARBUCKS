@@ -61,7 +61,7 @@ final class OnlineStoreCell: UITableViewCell {
         }
         
         bannerContentLabel1.do {
-            let fullText = "매일 펼쳐지는 새로움!\n단 11일, 쓱데이 한정\n혜택을 만나보세요"
+            let fullText = "매일 펼쳐지는 새로움! 단 11일, 쓱데이 한정 혜택을 만나보세요"
             let attributedText = NSMutableAttributedString(
                 string: fullText,
                 attributes: [
@@ -76,7 +76,7 @@ final class OnlineStoreCell: UITableViewCell {
             }
             
             $0.attributedText = attributedText
-            $0.numberOfLines = 3
+            $0.numberOfLines = 0
         }
         
         bannerDateLabel1.do {
@@ -135,7 +135,10 @@ final class OnlineStoreCell: UITableViewCell {
     // MARK: - UI
 
     func setUI() {
-        contentView.addSubviews(titleLabel, backgroundView1, backgroundView2)
+        contentView.addSubviews(
+            titleLabel,
+            backgroundView1,
+            backgroundView2)
         
         backgroundView1.addSubviews(
             bannerTitleLabel1,
@@ -173,6 +176,7 @@ final class OnlineStoreCell: UITableViewCell {
         bannerContentLabel1.snp.makeConstraints {
             $0.top.equalTo(bannerTitleLabel1.snp.bottom).offset(8)
             $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(148)
         }
         
         bannerDateLabel1.snp.makeConstraints {
@@ -202,6 +206,7 @@ final class OnlineStoreCell: UITableViewCell {
         bannerContentLabel2.snp.makeConstraints {
             $0.top.equalTo(bannerTitleLabel2.snp.bottom).offset(8)
             $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(161)
         }
         
         storeImageView2.snp.makeConstraints {
