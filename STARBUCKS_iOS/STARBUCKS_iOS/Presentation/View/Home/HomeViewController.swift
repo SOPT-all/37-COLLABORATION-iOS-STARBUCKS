@@ -39,6 +39,11 @@ final class HomeViewController: BaseViewController {
     override func loadView() {
         self.view = homeView
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,9 +174,11 @@ extension HomeViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(menuList: myMenuList)
-            cell.myMenuButton.editButtonTap = {
-                let viewController = MyMenuViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
+            cell.myMenuButton.editButtonTap = { [weak self] in
+                let viewController = MyMenuViewController()                
+                if let nav = self?.tabBarController?.selectedViewController as? UINavigationController {
+                    nav.pushViewController(viewController, animated: true)
+                }
             }
             return cell
         }
