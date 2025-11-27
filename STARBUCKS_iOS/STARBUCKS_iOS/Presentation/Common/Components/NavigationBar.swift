@@ -14,17 +14,20 @@ final class NavigationBar: UIView {
     
     // MARK: - Properties
     
-    private let leftButton = UIButton()
-    
-    private let rightButton = UIButton()
-    
     private let naviType: NaviType
+    var leftButtonHandler: (() -> Void)?
+    
+    // MARK: - UI Components
+    
+    private let leftButton = UIButton()
+    private let rightButton = UIButton()
     
     init(type: NaviType) {
         self.naviType = type
         super.init(frame: .zero)
         setUI()
         setLayout()
+        setAction()
     }
     
     required init?(coder: NSCoder) {
@@ -61,6 +64,17 @@ final class NavigationBar: UIView {
             $0.trailing.equalToSuperview().inset(16)
             $0.size.equalTo(naviType.iconSize)
         }
+    }
+    
+    private func setAction() {
+        leftButton.addTarget(self, action: #selector(leftButtonDidTap), for: .touchUpInside)
+    }
+    
+    // MARK: - Method
+    
+    @objc
+    private func leftButtonDidTap() {
+        leftButtonHandler?()
     }
     
 }
