@@ -162,20 +162,20 @@ extension HomeViewController: UITableViewDataSource {
         }
         let identifier = section.cellType.identifier
         if section == .quickOrder {
-                    guard let cell = tableView.dequeueReusableCell(
-                        withIdentifier: identifier,
-                        for: indexPath
-                    ) as? QuickOrderCell else {
-                        return UITableViewCell()
-                    }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: identifier,
+                for: indexPath
+            ) as? QuickOrderCell else {
+                return UITableViewCell()
+            }
             cell.configure(menuList: myMenuList)
             cell.myMenuButton.editButtonTap = {
                 let viewController = MyMenuViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
-                    return cell
-                }
-
+            return cell
+        }
+        
         return tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell()
     }
 }
