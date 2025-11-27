@@ -8,7 +8,7 @@
 import Foundation
 
 struct DrinkDetailEntity {
-    let myMenuId: Int64
+    let myMenuId: Int
     let isHot: Bool
 
     let hotMenuKr: String

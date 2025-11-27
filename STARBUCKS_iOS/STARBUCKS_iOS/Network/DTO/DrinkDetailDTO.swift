@@ -15,7 +15,7 @@ struct MyMenuResponseDTO: Codable {
 
 struct MyMenuDataDTO: Codable {
     let categoryName: String
-    let myMenuId: Int64
+    let myMenuId: Int
     
     let hotMenuKr: String
     let hotMenuEng: String
