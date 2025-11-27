@@ -58,10 +58,11 @@ final class FinalCardCell: UICollectionViewCell {
         }
         
         titleLabel.do {
-            $0.text = "나만의 메뉴를 등록하고\nHome에서 빠르게 주문해\n보세요 😊"
+            $0.text = "나만의 메뉴를 등록하고 Home에서 빠르게 주문해 보세요 😊"
             $0.font = .pretendard(.head_sb_12)
             $0.textColor = .starbucksGray900
-            $0.numberOfLines = 3
+            $0.lineBreakMode = .byWordWrapping
+            $0.numberOfLines = 0
         }
         
         subtitleLabel.do {
@@ -112,6 +113,7 @@ final class FinalCardCell: UICollectionViewCell {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(iconImageView)
             $0.leading.equalTo(iconImageView.snp.trailing).offset(16)
+            $0.width.equalTo(134)
         }
         
         subtitleLabel.snp.makeConstraints {
