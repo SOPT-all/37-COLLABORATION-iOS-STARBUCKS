@@ -169,6 +169,11 @@ final class QuickOrderItemCell: UICollectionViewCell {
             $0.trailing.equalTo(storeLabel.snp.trailing)
             $0.height.equalTo(1)
         }
+        
+        favoriteImageView.snp.makeConstraints {
+            $0.width.equalTo(17)
+            $0.height.equalTo(16)
+        }
     }
     
     func configure(with item: MyMenuDTO) {
