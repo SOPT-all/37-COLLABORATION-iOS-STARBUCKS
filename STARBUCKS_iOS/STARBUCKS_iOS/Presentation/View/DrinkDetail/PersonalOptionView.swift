@@ -16,7 +16,7 @@ final class PersonalOptionView: BaseView {
     
     var onTapReset: (() -> Void)?
     var onTapOptionDelete: ((Int) -> Void)?
-
+    var totalPrice: Int = 0
     
     // MARK: - UI Components
     
@@ -137,13 +137,34 @@ extension PersonalOptionView {
         optionStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         for (index, option) in options.enumerated() {
-            let row = PersonalOption(option: option.name)
+            let row = PersonalOption(option: option.name, price: option.price)
+            totalPrice += option.price
 
             row.deleteButtonHandler = { [weak self] in
-                self?.onTapOptionDelete?(index)
+                guard let self = self else { return }
+                if let currentIndex = self.optionStackView.arrangedSubviews.firstIndex(of: row) {
+                    self.onTapOptionDelete?(currentIndex)
+                }
             }
+
 
             optionStackView.addArrangedSubview(row)
         }
+    }
+    
+    func resetOptions() {
+        totalPrice = 0
+        optionStackView.arrangedSubviews.forEach { view in
+            view.removeFromSuperview()
+        }
+    }
+    
+    func deleteOption(at index: Int) {
+        let views = optionStackView.arrangedSubviews
+        guard index >= 0, index < views.count else { return }
+
+        let target = views[index]
+        optionStackView.removeArrangedSubview(target)
+        target.removeFromSuperview()
     }
 }
