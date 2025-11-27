@@ -14,10 +14,10 @@ struct MyMenuListResponseDTO: Codable {
 }
 
 struct MyMenuListDataDTO: Codable {
-    let myMenuList: [MyMenuListDTO]
+    let myMenuList: [MyMenuDetailDTO]
 }
 
-struct MyMenuListDTO: Codable {
+struct MyMenuDetailDTO: Codable {
     let myMenuId : Int
     let categoryName: String
     let myMenuName : String
