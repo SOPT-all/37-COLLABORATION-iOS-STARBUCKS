@@ -11,44 +11,34 @@ import Moya
 import SnapKit
 import Then
 
-                print("서버 에러")
 final class DrinkDetailViewController: BaseViewController {
     
     // MARK: - Properties
     
+    private var drinkDetailEntity: DrinkDetailEntity?
+    private let service = DrinkDetailService()
+    private var personalOptions: [PersonalOptionEntity] = []
+    private var price: Int = 0
+    private var optionPrice: Int = 0
+    private var sizePrice: Int = 0
+    
     // MARK: - UI Components
     
     private let shareBar = NavigationBar(type: .share)
-    var scrollView = UIScrollView()
-    let drinkDetailView = DrinkDetailView()
-    var saveOptionView = SaveOptionView()
+    private var scrollView = UIScrollView()
+    private let drinkDetailView = DrinkDetailView()
+    private var saveOptionView = SaveOptionView()
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setSaveOptionLabel()
+
+        fetchDrinkDetail()
         resetOption()
         deleteOption()
-        let dummyDrinkDetailEntity = DrinkDetailEntity(
-            myMenuId: 1,
-            menuKr: "아이스 핑크 팝 캐모마일 릴렉서",
-            menuEng: "Iced Pink Pop Chamomile Relaxer",
-            info: "크리스마스에 어울리는 샴페인 한잔과 같은 캐모마일 릴렉서! 리치, 레몬그라스, 캐모마일의 차분하면서도 새콤달콤한 조합 크리스마스 오너먼트가 떠오르는 핑크 리치 보바로 팝! 터지는 식감의 재미와 리치 풍미를 더했습니다",
-            basePrice: 6500,
-            isHot: false,
-            size: .grande,
-            sizePrices: SizePriceEntity(tall: 0, grande: 800, venti: 1600),
-            personalOptions: [
-                PersonalOptionEntity(name: "핑크 리치 보바 없음", price: 800),
-                PersonalOptionEntity(name: "로즈마리 많이", price: 800),
-                PersonalOptionEntity(name: "일반 휘핑 많이", price: 800)
-            ],
-            imageUrl: "https://image.starbucks.co.kr/upload/store/skuimg/2024/11/[9200000005660]_20241126100556486.jpg"
-        )
-        drinkDetailView.configure(with: dummyDrinkDetailEntity)
-        setInitialSaveOption(with: dummyDrinkDetailEntity)
+        bindCallbacks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,6 +78,7 @@ final class DrinkDetailViewController: BaseViewController {
         
         shareBar.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(40)
         }
 
@@ -105,6 +96,28 @@ final class DrinkDetailViewController: BaseViewController {
     
     // MARK: - Private Methods
     
+    private func fetchDrinkDetail() {
+        service.fetchDrinkDetail(for: 1) { [weak self] result in
+            switch result {
+            case .success(let dto):
+                let entity = dto.toEntity()
+                self?.drinkDetailEntity = entity
+                self?.personalOptions = entity.personalOptions
+                self?.optionPrice = entity.personalOptions.reduce(0) { $0 + $1.price }
+                self?.drinkDetailView.configure(with: entity)
+                self?.setInitialSaveOption(with: entity)
+            case .requestErr(let message):
+                print("요청 에러:", message)
+            case .pathErr:
+                print("경로(path) 에러")
+            case .serverErr:
+                print("서버 에러")
+            case .networkFail:
+                print("네트워크 실패")
+            }
+        }
+    }
+    
     private func setInitialSaveOption(with entity: DrinkDetailEntity) {
         saveOptionView.setTemperature(isHot: entity.isHot)
         
@@ -117,14 +130,12 @@ final class DrinkDetailViewController: BaseViewController {
         saveOptionView.setSize(sizeText)
     }
 
-    
-    private func setSaveOptionLabel() {
-//        drinkDetailView.onTemperatureChanged = { [weak self] isHot in
-//            self?.saveOptionView.setTemperature(isHot)
-//        }
-        
-        drinkDetailView.onSizeChanged = { [weak self] sizeText in
-            self?.saveOptionView.setSize(sizeText)
+    private func bindCallbacks() {
+        drinkDetailView.onTemperatureChanged = { [weak self] isHot in
+            self?.saveOptionView.setTemperature(isHot: isHot)
+        }
+        drinkDetailView.onSizeChanged = { [weak self] size in
+            self?.saveOptionView.setSize(size)
         }
     }
     
@@ -147,14 +158,17 @@ final class DrinkDetailViewController: BaseViewController {
             }
             alret.confirmButtonTap = {
                 backView.removeFromSuperview()
-                // TODO: - Remove item from list
+                self?.optionPrice = 0
+                self?.drinkDetailView.personalView.resetOptions()
+                self?.setPrice()
             }
         }
     }
     
     private func deleteOption() {
         drinkDetailView.onDeleteOption = { [weak self] index in
-            let alret = Alert(type: .delete, subtitle: "핑크 리치 보바 없음")
+            let optionName = self?.drinkDetailEntity?.personalOptions[index].name
+            let alret = Alert(type: .delete, subtitle: optionName ?? "")
             let backView = UIView()
             backView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             self?.view.addSubviews(alret, backView)
@@ -166,19 +180,26 @@ final class DrinkDetailViewController: BaseViewController {
             alret.snp.makeConstraints {
                 $0.center.equalToSuperview()
             }
-            
+
             alret.cancelButtonTap = {
                 backView.removeFromSuperview()
             }
             alret.confirmButtonTap = {
+                guard let self = self else { return }
                 backView.removeFromSuperview()
-                // TODO: - Remove item from list
+
+                let deletingPrice = self.personalOptions[index].price
+                self.optionPrice -= deletingPrice
+                self.personalOptions.remove(at: index)
+                self.drinkDetailView.personalView.deleteOption(at: index)
+                self.setPrice()
             }
         }
     }
     
-    // MARK: - Public Methods
-    
-    // MARK: - Set Actions
+    private func setPrice() {
+        price = (drinkDetailEntity?.basePrice ?? 0) + optionPrice + self.drinkDetailView.sizePrice
+        self.drinkDetailView.setPrice(price: price)
+    }
 }
 
