@@ -15,6 +15,8 @@ final class HomeViewController: BaseViewController {
     // MARK: - Properties
 
     private let homeView = HomeView()
+    private let service = QuickOrderService()
+    private var myMenuList: [MyMenuDTO] = []
     private var offsetCorrection: CGFloat = 0
 
     // MARK: - Enum
@@ -41,6 +43,7 @@ final class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        getMyMenuList()
     }
 
     // MARK: - Private Methods
@@ -51,28 +54,21 @@ final class HomeViewController: BaseViewController {
         homeView.mainTableView.separatorStyle = .none
         homeView.mainTableView.rowHeight = UITableView.automaticDimension
         homeView.mainTableView.estimatedRowHeight = 300
-        homeView.mainTableView.register(
-            QuickOrderCell.self,
-            forCellReuseIdentifier: QuickOrderCell.identifier
-        )
-        homeView.mainTableView.register(
-            RecommendMenuCell.self,
-            forCellReuseIdentifier: RecommendMenuCell.identifier
-        )
-        homeView.mainTableView.register(
-            WhatsNewCell.self,
-            forCellReuseIdentifier: WhatsNewCell.identifier
-        )
-        homeView.mainTableView.register(
-            PromotionCell.self,
-            forCellReuseIdentifier: PromotionCell.identifier
-        )
-
+        homeView.mainTableView.allowsSelection = false
+        registerCells()
         homeView.mainTableView.panGestureRecognizer.addTarget(self, action: #selector(panGesture))
-
         homeView.layoutIfNeeded()
         homeView.mainTableView.contentInset.top = homeView.headerContainer.bounds.height - 40
         homeView.mainTableView.contentOffset.y = -homeView.mainTableView.contentInset.top
+    }
+
+    private func registerCells() {
+        MainTableViewSection.allCases.forEach { section in
+            homeView.mainTableView.register(
+                section.cellType,
+                forCellReuseIdentifier: section.cellType.identifier
+            )
+        }
     }
 
     @objc func panGesture(_ sender: UIPanGestureRecognizer) {
@@ -165,7 +161,45 @@ extension HomeViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let identifier = section.cellType.identifier
-        
+        if section == .quickOrder {
+                    guard let cell = tableView.dequeueReusableCell(
+                        withIdentifier: identifier,
+                        for: indexPath
+                    ) as? QuickOrderCell else {
+                        return UITableViewCell()
+                    }
+            cell.configure(menuList: myMenuList)
+            cell.myMenuButton.editButtonTap = {
+                let viewController = MyMenuViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+                    return cell
+                }
+
         return tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell()
+    }
+}
+
+//MARK: getMenuAPI
+
+extension HomeViewController {
+    
+    func getMyMenuList() {
+        service.getMyMenuList { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                self.myMenuList = data.myMenuList
+                self.homeView.mainTableView.reloadData()
+            case .requestErr(let message):
+                print("❌ 요청 에러:", message)
+            case .pathErr:
+                print("❌ 경로(path) 에러")
+            case .serverErr:
+                print("❌ 서버 에러")
+            case .networkFail:
+                print("❌ 네트워크 실패")
+            }
+        }
     }
 }

@@ -34,7 +34,6 @@ final class WhatsNewItemCell: UICollectionViewCell {
     // MARK: - Setup
     
     private func setupUI() {
-        contentView.backgroundColor = .white
         contentView.clipsToBounds = true
         
         cardImageView.do {
@@ -101,18 +100,13 @@ struct WhatsNewItem {
     
     static let dummyData: [WhatsNewItem] = [
         WhatsNewItem(
-            image: UIImage(),
+            image: UIImage(resource: .imageHomeNew),
             title: "각인 뉴턴 캔디 핑크 텀블러 355...",
             description: "러블리한 핑크빛 각인 텀블러를 쓱데이 헤택과 함께 만나보세요!"
         ),
         WhatsNewItem(
-            image: UIImage(),
+            image: UIImage(resource: .imageHomeNew1),
             title: "2025 WINTER e-F...",
-            description: "스타벅스 삼성카드로 2025 WINTER e-FREQUENCY 참여시 별★..."
-        ),
-        WhatsNewItem(
-            image: UIImage(),
-            title: "새로운 소식 3",
-            description: "세 번째 소식입니다"
+            description: "스타벅스 삼성카드로 2025 WINTER e-FREQUENCY 참여시 별★52개 적립!"
         )
     ]}

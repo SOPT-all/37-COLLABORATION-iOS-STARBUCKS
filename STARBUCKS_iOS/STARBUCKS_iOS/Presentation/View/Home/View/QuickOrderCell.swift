@@ -12,11 +12,16 @@ import Then
 
 final class QuickOrderCell: UITableViewCell {
     
+    //MARK: - Properties
+    
+    private var myMenuList: [MyMenuDTO] = []
+    
     // MARK: - UI Components
     
     private let titleLabel = UILabel()
     private let collectionViewLayout = UICollectionViewFlowLayout()
-    
+    let myMenuButton = MenuButton()
+
     private lazy var mainCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: collectionViewLayout
@@ -26,7 +31,6 @@ final class QuickOrderCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .clear
         setUI()
         setLayout()
     }
@@ -38,7 +42,7 @@ final class QuickOrderCell: UITableViewCell {
     // MARK: - setUI
     
     private func setUI() {
-        
+        backgroundColor = .white
         titleLabel.do {
             $0.text = "Quick Order"
             $0.font = .pretendard(.head_b_20)
@@ -53,7 +57,7 @@ final class QuickOrderCell: UITableViewCell {
         }
         
         mainCollectionView.do {
-            $0.backgroundColor = .clear
+            $0.backgroundColor = .white
             $0.showsHorizontalScrollIndicator = false
             $0.allowsSelection = false
             $0.delegate = self
@@ -62,9 +66,13 @@ final class QuickOrderCell: UITableViewCell {
                 QuickOrderItemCell.self,
                 forCellWithReuseIdentifier: QuickOrderItemCell.identifier
             )
+            $0.register(FinalCardCell.self,
+                forCellWithReuseIdentifier: FinalCardCell.identifier)
         }
         
-        contentView.addSubviews(titleLabel, mainCollectionView)
+        contentView.addSubviews(titleLabel,
+                                myMenuButton,
+                                mainCollectionView)
     }
     
     // MARK: - Layout
@@ -72,7 +80,13 @@ final class QuickOrderCell: UITableViewCell {
     private func setLayout() {
         
         titleLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        
+        myMenuButton.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)  
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         mainCollectionView.snp.makeConstraints {
@@ -81,6 +95,11 @@ final class QuickOrderCell: UITableViewCell {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(164)
         }
+    }
+    
+    func configure(menuList: [MyMenuDTO]) {
+        self.myMenuList = menuList
+        mainCollectionView.reloadData()
     }
 }
 
@@ -93,22 +112,27 @@ extension QuickOrderCell: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return QuickOrderItem.dummyData.count
+        return myMenuList.count + 1
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: QuickOrderItemCell.identifier,
-            for: indexPath
-        ) as? QuickOrderItemCell else {
-            return UICollectionViewCell()
-        }
         
-        cell.configure(with: QuickOrderItem.dummyData[indexPath.row])
-        return cell
+        if indexPath.item == myMenuList.count {
+           guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FinalCardCell.identifier, for: indexPath) as? FinalCardCell else {
+                return UICollectionViewCell()
+            }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: QuickOrderItemCell.identifier, for: indexPath) as? QuickOrderItemCell else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: myMenuList[indexPath.row])
+            return cell
+        }
+     
     }
 }
 

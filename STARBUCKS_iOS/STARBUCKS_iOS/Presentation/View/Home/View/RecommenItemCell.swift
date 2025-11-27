@@ -14,7 +14,6 @@ import Then
 
 final class RecommendMenuItemCell: UICollectionViewCell {
         
-    private let containerView = UIView()
     private let menuImageView = UIImageView()
     private let titleLabel = UILabel()
     
@@ -29,13 +28,6 @@ final class RecommendMenuItemCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-                
-        containerView.do {
-            $0.backgroundColor = .red01
-            $0.layer.cornerRadius = 61
-            $0.clipsToBounds = true
-        }
-        
         menuImageView.do {
             $0.contentMode = .scaleAspectFit
             $0.clipsToBounds = true
@@ -49,27 +41,21 @@ final class RecommendMenuItemCell: UICollectionViewCell {
         }
         
         contentView.addSubviews(
-            containerView,
+            menuImageView,
             titleLabel
         )
         
-        containerView.addSubview(menuImageView)
-    }
+     }
     
     private func setupLayout() {
-        containerView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.centerX.equalToSuperview()
+        menuImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()     
+            $0.centerX.equalToSuperview()  
             $0.width.height.equalTo(122)
         }
         
-        menuImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.width.height.equalTo(80)
-        }
-        
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(containerView.snp.bottom).offset(12)
+            $0.top.equalTo(menuImageView.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.lessThanOrEqualToSuperview()
         }
@@ -90,16 +76,20 @@ struct RecommendMenuItem {
     
     static let dummyItems: [RecommendMenuItem] = [
         RecommendMenuItem(
-            image: UIImage(named: "menu1"),
+            image: UIImage(resource: .imageHomeMenu3),
             title: "코코말차"
         ),
         RecommendMenuItem(
-            image: UIImage(named: "menu2"),
+            image: UIImage(resource: .imageHomeMenu1),
             title: "아이스 윈터 스카치 바닐라 라떼"
         ),
         RecommendMenuItem(
-            image: UIImage(named: "menu3"),
+            image: UIImage(resource: .imageHomeMenu2),
             title: "토피넛 라떼"
+        ),
+        RecommendMenuItem(
+            image: UIImage(resource: .imageHomeMenu),
+            title: "카페 아메리카노"
         )
     ]
 }

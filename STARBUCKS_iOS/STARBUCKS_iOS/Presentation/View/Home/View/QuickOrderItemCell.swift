@@ -7,51 +7,22 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
-
-struct QuickOrderItem {
-    let drinkName: String
-    let temperature: String
-    let size: String
-    let image: UIImage?
-    let isFavorite: Bool
-    let storeName: String?
-    
-    static let dummyData: [QuickOrderItem] = [
-        QuickOrderItem(
-            drinkName: "나만의 아이스 핑크팝 캐모마일 릴렉서",
-            temperature: "ICED",
-            size: "Tall",
-            image: UIImage(resource: .imageRecommend4),
-            isFavorite: true,
-            storeName: nil
-        ),
-        QuickOrderItem(
-            drinkName: "나만의 블랙 글레이즈드 라떼",
-            temperature: "HOT",
-            size: "Grande",
-            image: UIImage(resource: .imageRecommend1),
-            isFavorite: false,
-            storeName: "스타벅스 강남점"
-        )
-    ]
-}
 
 final class QuickOrderItemCell: UICollectionViewCell {
     
     private let drinkImageView = UIImageView()
     private let favoriteImageView = UIImageView()
     private let titleLabel = UILabel()
-    private let infoStackView = UIStackView()
-    private let temperatureLabel = UILabel()
-    private let separatorLabel = UILabel()
-    private let sizeLabel = UILabel()
+    private let infoLabel = UILabel()
     private let footerContainer = UIView()
     private let topSeparator = UIView()
     private let storeIconView = UIImageView()
     private let storeLabel = UILabel()
     private let orderButton = UIButton()
+    let underlineView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,27 +57,10 @@ final class QuickOrderItemCell: UICollectionViewCell {
             $0.lineBreakMode = .byWordWrapping
         }
         
-        temperatureLabel.do {
+        infoLabel.do {
             $0.font = .pretendard(.caption_r_12)
+            $0.lineBreakMode = .byTruncatingTail
             $0.textColor = .starbucksGray600
-        }
-        
-        separatorLabel.do {
-            $0.text = "|"
-            $0.font = .pretendard(.body_r_12)
-            $0.textColor = .starbucksGray600
-        }
-        
-        sizeLabel.do {
-            $0.font = .pretendard(.body_r_12)
-            $0.textColor = .starbucksGray600
-        }
-        
-        infoStackView.do {
-            $0.axis = .horizontal
-            $0.spacing = 4
-            $0.alignment = .center
-            $0.addArrangedSubviews(temperatureLabel, separatorLabel, sizeLabel)
         }
         
         footerContainer.do {
@@ -120,6 +74,7 @@ final class QuickOrderItemCell: UICollectionViewCell {
         
         storeLabel.do {
             $0.font = .pretendard(.caption_r_12)
+            $0.text = "매장을 설정하세요."
             $0.textColor = UIColor(resource: .brown01)
         }
         
@@ -135,13 +90,18 @@ final class QuickOrderItemCell: UICollectionViewCell {
             $0.backgroundColor = .starbucksGray200
         }
         
+        underlineView.do {
+            $0.backgroundColor = UIColor(resource: .brown01)
+        }
+        
         contentView.addSubviews(
             drinkImageView,
             favoriteImageView,
             titleLabel,
-            infoStackView,
+            infoLabel,
             footerContainer,
-            topSeparator
+            topSeparator,
+            underlineView
         )
         
         footerContainer.addSubviews(
@@ -154,7 +114,7 @@ final class QuickOrderItemCell: UICollectionViewCell {
     private func setupLayout() {
         drinkImageView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(16)
-            $0.size.equalTo(50)
+            $0.size.equalTo(70)
         }
         
         favoriteImageView.snp.makeConstraints {
@@ -164,20 +124,20 @@ final class QuickOrderItemCell: UICollectionViewCell {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(drinkImageView).offset(12)
-            $0.leading.equalTo(drinkImageView.snp.trailing).offset(12)
-            $0.trailing.equalTo(favoriteImageView.snp.leading).offset(-8)
+            $0.top.equalTo(drinkImageView).inset(16)
+            $0.leading.equalTo(drinkImageView.snp.trailing)
         }
         
-        infoStackView.snp.makeConstraints {
+        infoLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.leading.equalTo(drinkImageView.snp.trailing).offset(12)
+            $0.leading.equalTo(drinkImageView.snp.trailing)
+            $0.width.equalTo(158)
         }
         
         footerContainer.snp.makeConstraints {
             $0.horizontalEdges.bottom.equalToSuperview()
             $0.height.equalTo(48)
-            $0.top.greaterThanOrEqualTo(infoStackView.snp.bottom).offset(12)
+            $0.top.greaterThanOrEqualTo(infoLabel.snp.bottom).offset(12)
         }
         
         storeIconView.snp.makeConstraints {
@@ -203,32 +163,18 @@ final class QuickOrderItemCell: UICollectionViewCell {
             $0.height.equalTo(1)
             $0.bottom.equalTo(footerContainer.snp.top)
         }
+        underlineView.snp.makeConstraints {
+            $0.top.equalTo(storeLabel.snp.bottom)
+            $0.leading.equalTo(storeLabel.snp.leading)
+            $0.trailing.equalTo(storeLabel.snp.trailing)
+            $0.height.equalTo(1)
+        }
     }
     
-    func configure(with item: QuickOrderItem) {
-        drinkImageView.image = item.image
-        titleLabel.text = item.drinkName
-        temperatureLabel.text = item.temperature
-        sizeLabel.text = item.size
-        favoriteImageView.isHidden = !item.isFavorite
-        
-        if let storeName = item.storeName {
-            storeLabel.text = storeName
-            storeLabel.textColor = UIColor(resource: .brown01)
-        } else {
-            storeLabel.text = "매장을 설정하세요."
-            storeLabel.textColor = UIColor(resource: .brown01)
-            
-            let underlineView = UIView()
-            underlineView.backgroundColor = UIColor(resource: .brown01)
-            addSubview(underlineView)
-
-            underlineView.snp.makeConstraints {
-                $0.top.equalTo(storeLabel.snp.bottom)
-                $0.leading.equalTo(storeLabel.snp.leading)
-                $0.trailing.equalTo(storeLabel.snp.trailing)
-                $0.height.equalTo(1)
-            }
-        }
+    func configure(with item: MyMenuDTO) {
+        guard let url = URL(string: item.myMenuImage) else { return }
+        drinkImageView.kf.setImage(with: url)
+        titleLabel.text = item.myMenuName
+        infoLabel.text = item.myMenuOption
     }
 }
