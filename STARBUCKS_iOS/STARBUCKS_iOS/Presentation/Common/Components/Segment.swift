@@ -14,7 +14,7 @@ final class Segment: UIControl {
     
     // MARK: - Properties
     
-    private var isHotSelected = false {
+    var isHotSelected = false {
         didSet { updateUI(animated: true) }
     }
     
