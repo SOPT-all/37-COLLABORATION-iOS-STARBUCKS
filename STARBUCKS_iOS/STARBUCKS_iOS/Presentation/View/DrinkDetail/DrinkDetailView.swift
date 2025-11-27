@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -14,14 +15,26 @@ final class DrinkDetailView: BaseView {
     
     // MARK: - Properties
     
-    private var defaultPrice = Int()
     var onDeleteOption: ((Int) -> Void)?
     var onSizeChanged: ((String) -> Void)?
+    var onTemperatureChanged: ((Bool) -> Void)?
+    var sizePrice: Int = 0
     private var sizePrices: SizePriceEntity?
+    private var size = DrinkSize(rawValue: "TALL")
+    private var defaultPrice: Int = 0
+    private var price: Int = 0
+    
+    private var hotMenuKr: String = ""
+    private var hotMenuEng: String = ""
+    private var hotImageUrl: String = ""
+    private var iceMenuKr: String = ""
+    private var iceMenuEng: String = ""
+    private var iceImageUrl: String = ""
     
     // MARK: - UI Components
     
     var drinkInfoHeaderView = DrinkInfoHeaderView()
+    var segmentView = Segment()
     var drinkNutritionInfoVRow = DrinkNutritionInfoRow()
     var cupSelectionView = CupSelectionView()
     var campaignView = CampaignView()
@@ -33,11 +46,12 @@ final class DrinkDetailView: BaseView {
     
     override func setUI() {
         self.backgroundColor = .white
-        self.addSubviews(drinkInfoHeaderView, drinkNutritionInfoVRow, cupSelectionView, campaignView, personalView)
+        self.addSubviews(drinkInfoHeaderView, segmentView, drinkNutritionInfoVRow, cupSelectionView, campaignView, personalView)
         cupSelectionView.delegate = self
         personalView.onTapOptionDelete = { [weak self] index in
             self?.onDeleteOption?(index)
         }
+        segmentView.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
     }
     
     // MARK: - Set Layout
@@ -47,8 +61,13 @@ final class DrinkDetailView: BaseView {
             $0.top.horizontalEdges.equalToSuperview()
         }
         
+        segmentView.snp.makeConstraints {
+            $0.top.equalTo(drinkInfoHeaderView.snp.bottom).offset(18)
+            $0.centerX.equalToSuperview()
+        }
+        
         drinkNutritionInfoVRow.snp.makeConstraints {
-            $0.top.equalTo(drinkInfoHeaderView.snp.bottom).offset(19)
+            $0.top.equalTo(segmentView.snp.bottom).offset(18)
             $0.horizontalEdges.equalToSuperview()
         }
         
@@ -71,10 +90,9 @@ final class DrinkDetailView: BaseView {
     
     // MARK: - Private Methods
     
-    private func applySize(_ size: CupSelectionView.CupSize) {
-        
-        let cupPrice = defaultPrice + getSizePrice(size: size)
-        drinkInfoHeaderView.setPrice(cupPrice)
+    private func applySize(_ size: DrinkSize) {
+        price = defaultPrice + getSizePrice(size: size) + personalView.totalPrice
+        drinkInfoHeaderView.setPrice(price)
         
         let sizeText: String = {
             switch size {
@@ -83,29 +101,29 @@ final class DrinkDetailView: BaseView {
             case .venti:  return "Venti"
             }
         }()
-        
         onSizeChanged?(sizeText)
     }
     
     // MARK: - Public Methods
     
     func configure(with entity: DrinkDetailEntity) {
-        drinkInfoHeaderView.setInfo(
-            name: entity.menuKr,
-            engName: entity.menuEng,
-            detail: entity.info
-        )
-        personalView.configure(options: entity.personalOptions)
+        hotMenuKr = entity.hotMenuKr
+        hotMenuEng = entity.hotMenuEng
+        hotImageUrl = entity.hotMenuImageUrl
         
-        // TODO: - Use Kingfisher
-        //        if let url = URL(string: entity.imageUrl) {
-        //             drinkInfoHeaderView.imageView.kf.setImage(with: url)
-        //        }
+        iceMenuKr = entity.iceMenuKr
+        iceMenuEng = entity.iceMenuEng
+        iceImageUrl = entity.iceMenuImageUrl
+        
+        updateMenuInfo(isHot: entity.isHot)
+        drinkInfoHeaderView.setInfo(detail: entity.info)
+        personalView.configure(options: entity.personalOptions)
+        segmentView.setSelected(isHot: entity.isHot)
         
         self.defaultPrice = entity.basePrice
         self.sizePrices = entity.sizePrices
         
-        let initialSize: CupSelectionView.CupSize = {
+        let initialSize: DrinkSize = {
             switch entity.size {
             case .tall:   return .tall
             case .grande: return .grande
@@ -116,21 +134,53 @@ final class DrinkDetailView: BaseView {
         applySize(initialSize)
         cupSelectionView.setInitialSize(initialSize)
     }
+    
+    func setPrice(price: Int) {
+        self.price = price
+        self.drinkInfoHeaderView.setPrice(price)
+    }
+    
+    @objc
+    private func segmentChanged(_ sender: Segment) {
+        let isHot = sender.isHotSelected
+        updateMenuInfo(isHot: isHot)
+        onTemperatureChanged?(isHot)
+    }
+    
+    private func updateMenuInfo(isHot: Bool) {
+        let menuKr = isHot ? hotMenuKr : iceMenuKr
+        let menuEng = isHot ? hotMenuEng : iceMenuEng
+        let imgUrl = isHot ? hotImageUrl : iceImageUrl
+        
+        drinkInfoHeaderView.setDrinkName(name: menuKr, engName: menuEng)
+
+        if let url = URL(string: imgUrl) {
+            drinkInfoHeaderView.setImage(url: url)
+        }
+    }
 }
 
 // MARK: - Delegate
 
 extension DrinkDetailView: CupSelectionViewDelegate {
-    func cupSelectionView(_ view: CupSelectionView, didSelect size: CupSelectionView.CupSize) {
+    func cupSelectionView(_ view: CupSelectionView, didSelect size: DrinkSize) {
+        self.size = size
         applySize(size)
     }
     
-    private func getSizePrice(size: CupSelectionView.CupSize) -> Int {
+    private func getSizePrice(size: DrinkSize) -> Int {
         guard let sizePrices else { return 0 }
         switch size {
-        case .tall:   return sizePrices.tall
-        case .grande: return sizePrices.grande
-        case .venti:  return sizePrices.venti
+        case .tall:
+            self.sizePrice = sizePrices.tall
+            return sizePrices.tall
+        case .grande:
+            self.sizePrice = sizePrices.grande
+            return sizePrices.grande
+        case .venti:
+            self.sizePrice = sizePrices.venti
+            return sizePrices.venti
         }
     }
 }
+
