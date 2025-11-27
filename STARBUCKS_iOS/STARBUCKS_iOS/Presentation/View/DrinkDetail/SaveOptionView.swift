@@ -14,9 +14,9 @@ final class SaveOptionView: BaseView {
     
     // MARK: - UI Components
     
-    var hotOptionLabel = UILabel()
+    private var hotOptionLabel = UILabel()
     private let separatorLabel = UILabel()
-    var sizeOptionLabel = UILabel()
+    private var sizeOptionLabel = UILabel()
     private var buttonStackView = UIStackView()
     private var addButton = UIButton()
     private var saveButton = UIButton()
@@ -110,7 +110,7 @@ final class SaveOptionView: BaseView {
     // MARK: - Public Methods
     
     public func setTemperature(isHot: Bool) {
-        sizeOptionLabel.text = isHot ? "HOT" : "ICED"
+        hotOptionLabel.text = isHot ? "HOT" : "ICED"
     }
     
     public func setSize(_ size: String) {
