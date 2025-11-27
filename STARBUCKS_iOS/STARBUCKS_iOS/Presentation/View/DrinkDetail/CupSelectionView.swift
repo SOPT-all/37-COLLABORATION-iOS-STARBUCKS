@@ -14,13 +14,7 @@ final class CupSelectionView: BaseView {
     
     // MARK: - Properties
     
-    enum CupSize {
-        case tall
-        case grande
-        case venti
-    }
-    
-    private var selectedSize: CupSize? {
+    private var selectedSize: DrinkSize? {
         didSet { updateSelectionUI() }
     }
     
@@ -30,7 +24,6 @@ final class CupSelectionView: BaseView {
     
     private let titleLabel = UILabel()
     private let sizeStackView = UIStackView()
-    
     private let tallSizeImage = UIImageView()
     private let grandeSizeImage = UIImageView()
     private let ventiSizeImage = UIImageView()
@@ -133,12 +126,12 @@ final class CupSelectionView: BaseView {
         }
     }
     
-    func setInitialSize(_ size: CupSize) { selectedSize = size }
+    func setInitialSize(_ size: DrinkSize) { selectedSize = size }
 }
 
 // MARK: - Delegate
 
 protocol CupSelectionViewDelegate: AnyObject {
-    func cupSelectionView(_ view: CupSelectionView, didSelect size: CupSelectionView.CupSize)
+    func cupSelectionView(_ view: CupSelectionView, didSelect size: DrinkSize)
 }
 
