@@ -20,7 +20,6 @@ final class DrinkDetailViewController: BaseViewController {
     private var personalOptions: [PersonalOptionEntity] = []
     private var price: Int = 0
     private var optionPrice: Int = 0
-    private var sizePrice: Int = 0
     
     // MARK: - UI Components
     
