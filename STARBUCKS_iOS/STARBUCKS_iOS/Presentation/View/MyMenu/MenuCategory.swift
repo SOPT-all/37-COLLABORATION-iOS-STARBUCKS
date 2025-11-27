@@ -10,16 +10,16 @@ import UIKit
 import SnapKit
 import Then
 
-enum MenuCategory: CaseIterable {
-    case all
-    case drink
-    case food
+enum MenuCategory: String, CaseIterable {
+    case all = "ALL"
+    case drink = "DRINK"
+    case food = "FOOD"
 }
 
 extension MenuCategory {
     var title: String {
         switch self {
-        case .all: return "ALL"
+        case .all: return "All"
         case .drink: return "음료"
         case .food: return "푸드"
         }

@@ -11,13 +11,13 @@ import SnapKit
 import Then
 
 protocol MyMenuListViewDelegate: AnyObject {
-    func didSelectMenu(_ menu: MyMenuModel)
+    func didTapAddMenu(_ menu: MyMenuModel)
 }
 
 final class MyMenuListView: BaseView {
     
     private let lineSpacing: CGFloat = 10
-    private let cellHeight: CGFloat = 196
+    private let cellHeight: CGFloat = 200
     weak var delegate: MyMenuListViewDelegate?
     private lazy var layout = UICollectionViewFlowLayout()
     private lazy var collectionView = UICollectionView(
@@ -68,7 +68,7 @@ final class MyMenuListView: BaseView {
 
 //MARK: - extensions
 
-extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MyMenuCollectionViewCellDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -85,16 +85,9 @@ extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, 
         
         let item = items[indexPath.item]
         cell.configure(with: item)
+        cell.delegate = self
         
         return cell
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        let selectedItem = items[indexPath.item]
-        delegate?.didSelectMenu(selectedItem)
     }
     
     func collectionView(
@@ -109,5 +102,13 @@ extension MyMenuListView: UICollectionViewDataSource, UICollectionViewDelegate, 
             width: width,
             height: height
         )
+    }
+    
+    // MARK: - MyMenuCollectionViewCellDelegate
+    
+    func didTapaddMenuButton(in cell: MyMenuCollectionViewCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let menu = items[indexPath.item]
+        delegate?.didTapAddMenu(menu)
     }
 }
