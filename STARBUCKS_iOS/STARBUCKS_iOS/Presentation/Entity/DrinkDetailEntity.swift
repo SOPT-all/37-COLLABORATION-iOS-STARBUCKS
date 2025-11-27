@@ -9,28 +9,34 @@ import Foundation
 
 struct DrinkDetailEntity {
     let myMenuId: Int64
-    let menuKr: String
-    let menuEng: String
+    let isHot: Bool
+
+    let hotMenuKr: String
+    let hotMenuEng: String
+    let hotMenuImageUrl: String
+    
+    let iceMenuKr: String
+    let iceMenuEng: String
+    let iceMenuImageUrl: String
+
     let info: String
     let basePrice: Int
-    let isHot: Bool
     let size: DrinkSize
     let sizePrices: SizePriceEntity
     let personalOptions: [PersonalOptionEntity]
-    let imageUrl: String
+    let summary: String
 }
 
 enum DrinkSize: String, Codable {
     case tall = "TALL"
     case grande = "GRANDE"
     case venti = "VENTI"
-
+    
     init(from raw: String?) {
         switch raw?.uppercased() {
-        case "TALL": self = .tall
         case "GRANDE": self = .grande
-        case "VENTI": self = .venti
-        default: self = .tall
+        case "VENTI":  self = .venti
+        default:       self = .tall
         }
     }
 }
