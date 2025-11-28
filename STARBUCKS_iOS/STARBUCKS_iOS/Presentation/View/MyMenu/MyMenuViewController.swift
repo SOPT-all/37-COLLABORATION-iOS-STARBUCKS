@@ -111,29 +111,6 @@ final class MyMenuViewController: BaseViewController {
         
         menuView.configure(items: filteredMenuList)
     }
-    
-     private func fetchMyMenuList() {
-         service.fetchMyMenuList { [weak self] result in
-             guard let self = self else { return }
-
-             switch result {
-             case .success(let data):
-                 DispatchQueue.main.async {
-                     self.myMenuList = data
-                     self.filteredMenuList = data
-                     self.menuView.configure(items: data)
-                 }
-             case .requestErr(let message):
-                 print("요청 에러:", message)
-             case .pathErr:
-                 print("경로 에러")
-             case .serverErr:
-                 print("서버 에러")
-             case .networkFail:
-                 print("네트워크 에러")
-             }
-         }
-     }
 }
 
 extension MyMenuViewController: MyMenuListViewDelegate {
@@ -142,8 +119,8 @@ extension MyMenuViewController: MyMenuListViewDelegate {
         
         let vc = DrinkDetailViewController()
         vc.delegate = self
+        vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
-        detailVC.hidesBottomBarWhenPushed = true
     }
 }
 

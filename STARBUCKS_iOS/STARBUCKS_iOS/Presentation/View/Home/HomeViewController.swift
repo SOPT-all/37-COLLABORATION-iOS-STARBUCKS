@@ -174,9 +174,9 @@ extension HomeViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(menuList: myMenuList)
-                viewController.delegate = self
             cell.myMenuButton.editButtonTap = { [weak self] in
-                let viewController = MyMenuViewController()                
+                let viewController = MyMenuViewController()
+                viewController.delegate = self
                 if let nav = self?.tabBarController?.selectedViewController as? UINavigationController {
                     nav.pushViewController(viewController, animated: true)
                 }
