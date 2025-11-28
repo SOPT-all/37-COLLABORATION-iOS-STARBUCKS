@@ -10,8 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
+protocol BackButtonAction: AnyObject {
+    func refreshView()
+}
+
 final class MyMenuViewController: BaseViewController {
     
+    weak var delegate: BackButtonAction?
     private let service = MyMenuListService()
     private var myMenuList: [MyMenuModel] = []
     private var filteredMenuList: [MyMenuModel] = []
@@ -29,26 +34,7 @@ final class MyMenuViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        service.fetchMyMenuList { result in
-            switch result {
-            case .success(let data):
-                self.myMenuList = data
-                self.filteredMenuList = data
-                self.menuView.configure(items: data)
-            case .requestErr(let message):
-                print("요청 에러:", message)
-                
-            case .pathErr:
-                print("경로 에러")
-                
-            case .serverErr:
-                print("서버 에러")
-                
-            case .networkFail:
-                print("네트워크 에러")
-                
-            }
-        }
+        fetchMyMenuList()
         
         menuView.delegate = self
         
@@ -57,6 +43,10 @@ final class MyMenuViewController: BaseViewController {
             
             // 여기서 category 에 따라 서버/로컬 데이터 필터링
             // ex) self.filterMenus(by: category)
+        }
+        searchBar.leftButtonHandler = { [weak self] in
+            self?.delegate?.refreshView()
+            self?.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -92,6 +82,29 @@ final class MyMenuViewController: BaseViewController {
         }
     }
     
+    private func fetchMyMenuList() {
+        service.fetchMyMenuList { result in
+            switch result {
+            case .success(let data):
+                self.myMenuList = data
+                self.filteredMenuList = data
+                self.menuView.configure(items: data)
+            case .requestErr(let message):
+                print("요청 에러:", message)
+                
+            case .pathErr:
+                print("경로 에러")
+                
+            case .serverErr:
+                print("서버 에러")
+                
+            case .networkFail:
+                print("네트워크 에러")
+                
+            }
+        }
+    }
+    
     private func applyFilter(_ category: MenuCategory) {
         switch category {
         case .all:
@@ -111,6 +124,13 @@ extension MyMenuViewController: MyMenuListViewDelegate {
         guard menu.id == 1 else { return }
         
         let vc = DrinkDetailViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension MyMenuViewController: SaveMenuDelegate {
+    func updateView() {
+        fetchMyMenuList()
     }
 }
