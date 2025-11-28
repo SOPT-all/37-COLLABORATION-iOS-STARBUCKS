@@ -34,27 +34,7 @@ final class MyMenuViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        service.fetchMyMenuList { result in
-            switch result {
-            case .success(let data):
-                self.myMenuList = data
-                self.filteredMenuList = data
-                self.menuView.configure(items: data)
-            case .requestErr(let message):
-                print("요청 에러:", message)
-                
-            case .pathErr:
-                print("경로 에러")
-                
-            case .serverErr:
-                print("서버 에러")
-                
-            case .networkFail:
-                print("네트워크 에러")
-                
-            }
-        }
-        
+        fetchMyMenuList()
         menuView.delegate = self
         searchBar.leftButtonHandler = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
@@ -98,17 +78,34 @@ final class MyMenuViewController: BaseViewController {
     }
     
     private func applyFilter(_ category: MenuCategory) {
-        switch category {
-        case .all:
-            filteredMenuList = myMenuList
-        case .drink:
-            filteredMenuList = myMenuList.filter { $0.category == .drink }
-        case .food:
-            filteredMenuList = myMenuList.filter { $0.category == .food }
-        }
+        filteredMenuList = (category == .all) ?
+        myMenuList : myMenuList.filter { $0.category == category }
         
         menuView.configure(items: filteredMenuList)
     }
+    
+     private func fetchMyMenuList() {
+         service.fetchMyMenuList { [weak self] result in
+             guard let self = self else { return }
+
+             switch result {
+             case .success(let data):
+                 DispatchQueue.main.async {
+                     self.myMenuList = data
+                     self.filteredMenuList = data
+                     self.menuView.configure(items: data)
+                 }
+             case .requestErr(let message):
+                 print("요청 에러:", message)
+             case .pathErr:
+                 print("경로 에러")
+             case .serverErr:
+                 print("서버 에러")
+             case .networkFail:
+                 print("네트워크 에러")
+             }
+         }
+     }
 }
 
 extension MyMenuViewController: MyMenuListViewDelegate {
