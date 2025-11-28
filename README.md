@@ -83,5 +83,36 @@ For building and running the application you need: iOS `17.6` <br>
 
 <br>
 
+## Foldering
+```markdown
+📦 Project
+│
+├── 📂 Application
+│   ├── AppDelegate.swift
+│   └── SceneDelegate.swift
+│
+├── 📂 Network
+│   ├── 📂 API
+│   ├── 📂 DTO
+│   ├── 📂 Common
+│   └── 📂 Service
+│
+├── 📂 Presentation
+│   ├── 📂 Common
+│   │   ├── 📂 Base
+│   │   ├── 📂 Components
+│   │   ├── 📂 Extensions
+│   │   └── 📂 Resources
+│   ├── 📂 Home
+│   ├── 📂 MyMenu
+│   └── 📂 DrinkDetail
+│
+├── 📂 Entity
+│
+├── Config.xcconfig
+└── Info.plist
+```
+
+
 ## 🔥 Trouble Shooting
 [💫 Trouble Shooting](https://www.notion.so/sopt-official/2aa1e48dd960814a9f31d8b4ba2ec129?source=copy_link)
