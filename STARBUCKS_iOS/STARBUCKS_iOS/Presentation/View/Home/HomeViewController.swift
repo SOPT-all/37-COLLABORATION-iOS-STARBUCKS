@@ -39,6 +39,11 @@ final class HomeViewController: BaseViewController {
     override func loadView() {
         self.view = homeView
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,21 +167,23 @@ extension HomeViewController: UITableViewDataSource {
         }
         let identifier = section.cellType.identifier
         if section == .quickOrder {
-                    guard let cell = tableView.dequeueReusableCell(
-                        withIdentifier: identifier,
-                        for: indexPath
-                    ) as? QuickOrderCell else {
-                        return UITableViewCell()
-                    }
-            cell.configure(menuList: myMenuList)
-            cell.myMenuButton.editButtonTap = {
-                let viewController = MyMenuViewController()
-                viewController.delegate = self
-                self.navigationController?.pushViewController(viewController, animated: true)
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: identifier,
+                for: indexPath
+            ) as? QuickOrderCell else {
+                return UITableViewCell()
             }
-                    return cell
+            cell.configure(menuList: myMenuList)
+                viewController.delegate = self
+            cell.myMenuButton.editButtonTap = { [weak self] in
+                let viewController = MyMenuViewController()                
+                if let nav = self?.tabBarController?.selectedViewController as? UINavigationController {
+                    nav.pushViewController(viewController, animated: true)
                 }
-
+            }
+            return cell
+        }
+        
         return tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell()
     }
 }

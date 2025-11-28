@@ -260,4 +260,3 @@ final class DrinkDetailViewController: BaseViewController {
         }
     }
 }
-
