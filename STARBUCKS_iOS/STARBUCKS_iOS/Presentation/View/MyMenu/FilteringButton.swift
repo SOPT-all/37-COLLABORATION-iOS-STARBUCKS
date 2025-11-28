@@ -14,8 +14,7 @@ final class FilteringButton: UIButton {
     
     // MARK: - Properties
     
-    private let menuCategory: MenuCategory
-    
+    private(set) var menuCategory: MenuCategory
     var category: MenuCategory { menuCategory }
     
     // MARK: - UI Components

@@ -17,13 +17,13 @@ final class TabBarController: UITabBarController {
     private func configureTabBar() {
         let controllers = MainTab.allCases.map { tab in
             let vc = tab.viewController
-            vc.tabBarItem = UITabBarItem(
+            let nav = UINavigationController(rootViewController: vc)
+            nav.tabBarItem = UITabBarItem(
                 title: tab.title,
                 image: tab.icon,
                 selectedImage: tab.icon
             )
-            vc.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.pretendard(.caption_r_10)], for: .normal)
-            return vc
+            return nav
         }
         
         viewControllers = controllers
