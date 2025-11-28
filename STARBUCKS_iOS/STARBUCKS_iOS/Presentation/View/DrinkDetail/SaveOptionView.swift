@@ -12,6 +12,10 @@ import Then
 
 final class SaveOptionView: BaseView {
     
+    // MARK: - Properties
+    
+    var saveButtonHandler: (() -> Void)?
+    
     // MARK: - UI Components
     
     private var hotOptionLabel = UILabel()
@@ -67,6 +71,7 @@ final class SaveOptionView: BaseView {
             $0.layer.masksToBounds = true
             $0.backgroundColor = .starbucksGreen500
             $0.titleLabel?.font = .pretendard(.caption_r_14)
+            $0.addTarget(self, action: #selector(saveButtonDidTap), for: .touchUpInside)
         }
     }
     
@@ -123,5 +128,12 @@ final class SaveOptionView: BaseView {
     
     public func setSize(_ size: String) {
         sizeOptionLabel.text = size
+    }
+    
+    // MARK: - Button Methods
+    
+    @objc
+    private func saveButtonDidTap() {
+        saveButtonHandler?()
     }
 }

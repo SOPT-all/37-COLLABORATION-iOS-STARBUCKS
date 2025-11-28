@@ -175,7 +175,8 @@ extension HomeViewController: UITableViewDataSource {
             }
             cell.configure(menuList: myMenuList)
             cell.myMenuButton.editButtonTap = { [weak self] in
-                let viewController = MyMenuViewController()                
+                let viewController = MyMenuViewController()
+                viewController.delegate = self
                 if let nav = self?.tabBarController?.selectedViewController as? UINavigationController {
                     nav.pushViewController(viewController, animated: true)
                 }
@@ -184,6 +185,12 @@ extension HomeViewController: UITableViewDataSource {
         }
         
         return tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell()
+    }
+}
+
+extension HomeViewController: BackButtonAction {
+    func refreshView() {
+        getMyMenuList()
     }
 }
 
@@ -210,3 +217,4 @@ extension HomeViewController {
         }
     }
 }
+

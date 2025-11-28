@@ -24,7 +24,6 @@
 				Info.plist,
 				Network/.gitkeep,
 				Presentation/Common/Components/.gitkeep,
-				Presentation/View/Home/.gitkeep,
 			);
 			target = B057E9102ECA6EBD001C2109 /* STARBUCKS_iOS */;
 		};

@@ -11,15 +11,23 @@ import Moya
 import SnapKit
 import Then
 
+protocol SaveMenuDelegate: AnyObject {
+    func updateView()
+}
+
 final class DrinkDetailViewController: BaseViewController {
     
     // MARK: - Properties
     
+    weak var delegate: SaveMenuDelegate?
     private var drinkDetailEntity: DrinkDetailEntity?
     private let service = DrinkDetailService()
     private var personalOptions: [PersonalOptionEntity] = []
     private var price: Int = 0
     private var optionPrice: Int = 0
+    private let saveService = SaveMenuService()
+    private var isHot: Bool = true
+    private var size: String = ""
     
     // MARK: - UI Components
     
@@ -38,9 +46,7 @@ final class DrinkDetailViewController: BaseViewController {
         resetOption()
         deleteOption()
         bindCallbacks()
-        shareBar.leftButtonHandler = { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-        }
+        patchMenu()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +118,7 @@ final class DrinkDetailViewController: BaseViewController {
                 self?.optionPrice = entity.personalOptions.reduce(0) { $0 + $1.price }
                 self?.drinkDetailView.configure(with: entity)
                 self?.setInitialSaveOption(with: entity)
+                self?.isHot = entity.isHot
             case .requestErr(let message):
                 print("요청 에러:", message)
             case .pathErr:
@@ -139,9 +146,14 @@ final class DrinkDetailViewController: BaseViewController {
     private func bindCallbacks() {
         drinkDetailView.onTemperatureChanged = { [weak self] isHot in
             self?.saveOptionView.setTemperature(isHot: isHot)
+            self?.isHot = isHot
         }
         drinkDetailView.onSizeChanged = { [weak self] size in
             self?.saveOptionView.setSize(size)
+            self?.size = size
+        }
+        shareBar.leftButtonHandler = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -164,6 +176,7 @@ final class DrinkDetailViewController: BaseViewController {
             }
             alert.confirmButtonTap = {
                 backView.removeFromSuperview()
+                self?.personalOptions.removeAll()
                 self?.optionPrice = 0
                 self?.drinkDetailView.personalView.resetOptions()
                 self?.setPrice()
@@ -173,7 +186,7 @@ final class DrinkDetailViewController: BaseViewController {
     
     private func deleteOption() {
         drinkDetailView.onDeleteOption = { [weak self] index in
-            let optionName = self?.drinkDetailEntity?.personalOptions[index].name
+            let optionName = self?.personalOptions[index].name
             let alert = Alert(type: .delete, subtitle: optionName ?? "")
             let backView = UIView()
             backView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
@@ -206,5 +219,44 @@ final class DrinkDetailViewController: BaseViewController {
     private func setPrice() {
         price = (drinkDetailEntity?.basePrice ?? 0) + optionPrice + self.drinkDetailView.sizePrice
         self.drinkDetailView.setPrice(price: price)
+    }
+    
+    private func saveMenu() -> SaveMenuDataDTO {
+        let upperSize: String
+        switch size {
+        case "Tall": upperSize = "TALL"
+        case "Grande": upperSize = "GRANDE"
+        case "Venti": upperSize = "VENTI"
+        default:
+            upperSize = size
+        }
+        return SaveMenuDataDTO(
+            isHot: self.isHot,
+            size: upperSize,
+            personalOptions: self.personalOptions.map { $0.toDTO() }
+        )
+    }
+    
+    private func patchMenu() {
+        saveOptionView.saveButtonHandler = { [weak self] in
+            guard let self = self else { return }
+            let body = self.saveMenu()
+            saveService.saveMenu(drinkId: 1, body: body) { result in
+                switch result {
+                case .success(let dto):
+                    print(dto)
+                    self.delegate?.updateView()
+                    self.navigationController?.popViewController(animated: true)
+                case .requestErr(let message):
+                    print("요청 에러:", message)
+                case .pathErr:
+                    print("경로(path) 에러")
+                case .serverErr:
+                    print("서버 에러")
+                case .networkFail:
+                    print("네트워크 실패")
+                }
+            }
+        }
     }
 }

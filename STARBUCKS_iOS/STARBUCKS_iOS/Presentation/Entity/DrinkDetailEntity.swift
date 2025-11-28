@@ -51,3 +51,12 @@ struct PersonalOptionEntity {
     let name: String
     let price: Int
 }
+
+extension PersonalOptionEntity {
+    func toDTO() -> PersonalOptionDTO {
+        return PersonalOptionDTO(
+            name: self.name,
+            price: self.price
+        )
+    }
+}

@@ -10,8 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
+protocol BackButtonAction: AnyObject {
+    func refreshView()
+}
+
 final class MyMenuViewController: BaseViewController {
     
+    weak var delegate: BackButtonAction?
     private let service = MyMenuListService()
     private var myMenuList: [MyMenuModel] = []
     private var filteredMenuList: [MyMenuModel] = []
@@ -36,12 +41,13 @@ final class MyMenuViewController: BaseViewController {
         
         fetchMyMenuList()
         menuView.delegate = self
-        searchBar.leftButtonHandler = { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-        }
-        
+
         filteringBarView.didChangeCategory = { [weak self] category in
             self?.applyFilter(category)
+        }
+        searchBar.leftButtonHandler = { [weak self] in
+            self?.delegate?.refreshView()
+            self?.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -77,43 +83,50 @@ final class MyMenuViewController: BaseViewController {
         }
     }
     
+    private func fetchMyMenuList() {
+        service.fetchMyMenuList { result in
+            switch result {
+            case .success(let data):
+                self.myMenuList = data
+                self.filteredMenuList = data
+                self.menuView.configure(items: data)
+            case .requestErr(let message):
+                print("요청 에러:", message)
+                
+            case .pathErr:
+                print("경로 에러")
+                
+            case .serverErr:
+                print("서버 에러")
+                
+            case .networkFail:
+                print("네트워크 에러")
+                
+            }
+        }
+    }
+    
     private func applyFilter(_ category: MenuCategory) {
         filteredMenuList = (category == .all) ?
         myMenuList : myMenuList.filter { $0.category == category }
         
         menuView.configure(items: filteredMenuList)
     }
-    
-     private func fetchMyMenuList() {
-         service.fetchMyMenuList { [weak self] result in
-             guard let self = self else { return }
-
-             switch result {
-             case .success(let data):
-                 DispatchQueue.main.async {
-                     self.myMenuList = data
-                     self.filteredMenuList = data
-                     self.menuView.configure(items: data)
-                 }
-             case .requestErr(let message):
-                 print("요청 에러:", message)
-             case .pathErr:
-                 print("경로 에러")
-             case .serverErr:
-                 print("서버 에러")
-             case .networkFail:
-                 print("네트워크 에러")
-             }
-         }
-     }
 }
 
 extension MyMenuViewController: MyMenuListViewDelegate {
     func didTapAddMenu(_ menu: MyMenuModel) {
         guard menu.id == 1 else { return }
         
-        let detailVC = DrinkDetailViewController()
-        detailVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(detailVC, animated: true)
+        let vc = DrinkDetailViewController()
+        vc.delegate = self
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension MyMenuViewController: SaveMenuDelegate {
+    func updateView() {
+        fetchMyMenuList()
     }
 }
