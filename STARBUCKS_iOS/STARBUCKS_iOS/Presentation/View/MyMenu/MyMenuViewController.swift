@@ -40,7 +40,8 @@ final class MyMenuViewController: BaseViewController {
         view.backgroundColor = .white
         
         fetchMyMenuList()
-        
+        menuView.delegate = self
+
         filteringBarView.didChangeCategory = { [weak self] category in
             self?.applyFilter(category)
         }
