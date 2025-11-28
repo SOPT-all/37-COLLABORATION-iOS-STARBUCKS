@@ -61,7 +61,7 @@ For building and running the application you need: iOS `17.6` <br>
 ## 📱 화면 구성
 | Home View | My Menu View | Drink Detail View | 전체 Flow |
 |:----------:|:----------:|:----------:|:----------:|
-| ![Home](https://github.com/user-attachments/assets/fdd4be1c-e1f3-43bd-9d75-a5555182efc0) | ![MyMenu](https://github.com/user-attachments/assets/e28d710c-add1-443b-baeb-5424f65ca9f2) |  |  |
+| ![Home](https://github.com/user-attachments/assets/85d8fc8e-0611-4fb5-b63e-2c5c2a236cc8) | ![MyMenu](https://github.com/user-attachments/assets/e28d710c-add1-443b-baeb-5424f65ca9f2) | ![Simulator Screen Recording - iPhone 13 mini - 2025-11-28 at 23 15 58](https://github.com/user-attachments/assets/8ca8bcae-05e9-4b0f-9274-fda4e88a547e) | ![flow](https://github.com/user-attachments/assets/4b3e431d-86e9-4d57-b677-e4bce779bccb) |
 
 ## ⚠️ Conventions
 [🖥️ Code Convention](https://www.notion.so/sopt-official/Code-Convention-2aa1e48dd960815ca31ac65e6a73766c?source=copy_link)<br>
